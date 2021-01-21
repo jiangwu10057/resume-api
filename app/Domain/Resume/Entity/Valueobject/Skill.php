@@ -10,6 +10,12 @@ class Skill
     private $name;
     private $degree;
 
+    public function __construct()
+    {
+        $this->name = '';
+        $this->degree = 0;
+    }
+
     /**
      * Get the value of name
      */

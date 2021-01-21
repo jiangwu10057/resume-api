@@ -8,6 +8,11 @@ class Education
 {
     private $schools;
 
+    public function __construct()
+    {
+        $this->schools = [];
+    }
+
     /**
      * Get the value of schools
      */

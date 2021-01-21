@@ -11,6 +11,14 @@ class Personal
     private $year;
     private $education;
 
+    public function __construct()
+    {
+        $this->name = '';
+        $this->sex = Sex::MALE;
+        $this->year = '';
+        $this->education = '';
+    }
+
     /**
      * Get the value of name
      */

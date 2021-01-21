@@ -9,6 +9,13 @@ class Contact
     private $mobile;
     private $email;
     private $qq;
+
+    public function __construct()
+    {
+        $this->mobile = '';
+        $this->email = '';
+        $this->qq = '';
+    }
     
     /**
      * Get the value of qq

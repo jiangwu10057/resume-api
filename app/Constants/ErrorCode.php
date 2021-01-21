@@ -32,4 +32,11 @@ class ErrorCode extends AbstractConstants
      * @Message("Server Error！")
      */
     const SERVER_ERROR = 500;
+
+    
+
+    /**
+     * @Message("参数类型错误")
+     */
+    const PARAMETER_TYPE_ERROR = 201001;
 }

@@ -10,6 +10,13 @@ class Project
     private $role;
     private $description;
 
+    public function __construct()
+    {
+        $this->name = '';
+        $this->role = '';
+        $this->description = '';
+    }
+
     /**
      * Get the value of name
      */

@@ -49,9 +49,4 @@ class Share
 
     return $this;
   }
-
-  public function show()
-  {
-    
-  }
 }

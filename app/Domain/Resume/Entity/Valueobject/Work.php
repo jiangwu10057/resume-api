@@ -10,6 +10,13 @@ class Work
     private $url;
     private $description;
 
+    public function __construct()
+    {
+        $this->name = '';
+        $this->url = '';
+        $this->description = '';
+    }
+
     /**
      * Get the value of name
      */

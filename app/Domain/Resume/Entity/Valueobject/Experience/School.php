@@ -12,6 +12,15 @@ class School
     private $graduation;
     private $description;
 
+    public function __construct()
+    {
+        $this->name = '';
+        $this->education = '';
+        $this->entrance = '';
+        $this->graduation = '';
+        $this->description = '';
+    }
+
     /**
      * Get the value of name
      */

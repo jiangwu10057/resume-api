@@ -10,6 +10,13 @@ class Works
     private $articles;
     private $speeches;
 
+    public function __construct()
+    {
+        $this->opensources = [];
+        $this->articles = [];
+        $this->speeches = [];
+    }
+
     /**
      * Get the value of opensources
      */

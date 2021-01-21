@@ -11,6 +11,14 @@ class Company
     private $timeperiod;
     private $projects;
 
+    public function __construct()
+    {
+        $this->company = '';
+        $this->position = '';
+        $this->timeperiod = '';
+        $this->projects = [];
+    }
+
     /**
      * Get the value of company
      */

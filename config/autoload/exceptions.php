@@ -14,6 +14,7 @@ return [
         'http' => [
             App\Exception\Handler\RequestExceptionHandler::class,
             Hyperf\HttpServer\Exception\Handler\HttpExceptionHandler::class,
+            App\Exception\Handler\BusinessExceptionHandler::class,
             App\Exception\Handler\AppExceptionHandler::class,
         ],
     ],

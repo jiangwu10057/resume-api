@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Entity;
 
+use App\Domain\Resume\Entity\Valueobject\Contact;
+use App\Domain\Resume\Entity\Valueobject\Personal;
+
 class Content
 {
     private $id;
@@ -18,6 +21,21 @@ class Content
     private $education;
     private $works;
     private $skills;
+
+    public function __construct()
+    {
+        $this->uid = 0;
+
+        $this->title = '';
+        $this->target = '';
+
+        $this->contact = new Contact();
+        $this->personal = new Personal();
+        $this->workExperience = [];
+        $this->education = [];
+        $this->works = [];
+        $this->skills = [];
+    }
 
     /**
      * Get the value of contact
@@ -217,20 +235,5 @@ class Content
         $this->uid = $uid;
 
         return $this;
-    }
-
-    public function generate()
-    {
-
-    }
-
-    public function update()
-    {
-
-    }
-
-    public function delete()
-    {
-
     }
 }

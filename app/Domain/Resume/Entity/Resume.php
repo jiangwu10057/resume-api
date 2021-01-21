@@ -158,27 +158,4 @@ class Resume
 
         return $this;
     }
-
-    public function generateFree()
-    {
-
-    }
-
-    /**
-     * todo
-     */
-    public function generateFee()
-    {
-
-    }
-
-    public function shared($id)
-    {
-
-    }
-
-    public function preview()
-    {
-        
-    }
 }
