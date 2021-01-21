@@ -69,4 +69,13 @@ class Contact
 
         return $this;
     }
+
+    public function toString()
+    {
+        return json_encode([
+            'email' => $this->email,
+            'mobile' => $this->mobile,
+            'qq' => $this->qq
+        ], JSON_UNESCAPED_UNICODE);
+    }
 }

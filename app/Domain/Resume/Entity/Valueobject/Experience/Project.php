@@ -69,4 +69,13 @@ class Project
 
         return $this;
     }
+
+    public function toString()
+    {
+        return json_encode([
+            'name' => $this->name,
+            'role' => $this->role,
+            'description' => $this->description,
+        ], JSON_UNESCAPED_UNICODE);
+    }
 }

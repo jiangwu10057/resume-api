@@ -69,4 +69,13 @@ class Works
 
         return $this;
     }
+
+    public function toString()
+    {
+        return json_encode([
+            'opensources' => $this->opensources,
+            'articles' => $this->articles,
+            'speeches' => $this->speeches
+        ], JSON_UNESCAPED_UNICODE);
+    }
 }

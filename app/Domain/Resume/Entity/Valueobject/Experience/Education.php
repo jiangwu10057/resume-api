@@ -27,4 +27,11 @@ class Education
 
         return $this;
     }
+
+    public function toString()
+    {
+        return json_encode([
+            'schools' => $this->schools
+        ], JSON_UNESCAPED_UNICODE);
+    }
 }

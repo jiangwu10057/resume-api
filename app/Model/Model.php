@@ -18,4 +18,8 @@ use Hyperf\ModelCache\CacheableInterface;
 abstract class Model extends BaseModel implements CacheableInterface
 {
     use Cacheable;
+
+    const CREATED_AT = 'created_time';
+
+    const UPDATED_AT = 'updated_time';
 }

@@ -218,4 +218,19 @@ class Content
 
         return $this;
     }
+
+    public function generate()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete()
+    {
+
+    }
 }

@@ -69,4 +69,13 @@ class Work
 
         return $this;
     }
+
+    public function toString()
+    {
+        return json_encode([
+            'name' => $this->name,
+            'url' => $this->url,
+            'description' => $this->description
+        ], JSON_UNESCAPED_UNICODE);
+    }
 }

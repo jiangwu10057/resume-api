@@ -111,4 +111,15 @@ class School
 
         return $this;
     }
+
+    public function toString()
+    {
+        return json_encode([
+            'name' => $this->name,
+            'education' => $this->education,
+            'entrance' => $this->entrance,
+            'graduation' => $this->graduation,
+            'description' => $this->description
+        ], JSON_UNESCAPED_UNICODE);
+    }
 }

@@ -90,4 +90,14 @@ class Personal
 
         return $this;
     }
+
+    public function toString()
+    {
+        return json_encode([
+            'name' => $this->name,
+            'sex' => $this->sex,
+            'year' => $this->year,
+            'education' => $this->education
+        ], JSON_UNESCAPED_UNICODE);
+    }
 }

@@ -8,9 +8,14 @@ class Resume
 {
     private $id;
     private $uid;
+
+    /**
+     * 付费业务形态暂时不做  
+     */
+    private $type;
     private $isValid;
     private $showEndTime;
-    private $type;
+    
     private $shareCounter;
     private $content;
 
@@ -57,7 +62,7 @@ class Resume
     /**
      * Get the value of isValid
      */
-    public function getIsValid()
+    public function isValid()
     {
         return $this->isValid;
     }
@@ -67,9 +72,9 @@ class Resume
      *
      * @return  self
      */
-    public function setIsValid($isValid)
+    public function changeValidStatus($status)
     {
-        $this->isValid = $isValid;
+        $this->isValid = $status;
 
         return $this;
     }
@@ -152,5 +157,28 @@ class Resume
         $this->content = $content;
 
         return $this;
+    }
+
+    public function generateFree()
+    {
+
+    }
+
+    /**
+     * todo
+     */
+    public function generateFee()
+    {
+
+    }
+
+    public function shared($id)
+    {
+
+    }
+
+    public function preview()
+    {
+        
     }
 }

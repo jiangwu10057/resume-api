@@ -10,8 +10,6 @@ class Skill
     private $name;
     private $degree;
 
-    
-
     /**
      * Get the value of name
      */
@@ -50,5 +48,13 @@ class Skill
         $this->degree = $degree;
 
         return $this;
+    }
+
+    public function toString()
+    {
+        return json_encode([
+            'name' => $this->name,
+            'degree' => $this->degree,
+        ], JSON_UNESCAPED_UNICODE);
     }
 }

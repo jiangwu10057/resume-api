@@ -7,4 +7,8 @@ namespace App\Model;
 class SocialAccountModel extends Model
 {
     protected $table = 'social_account';
+
+    protected $incrementing = false;
+
+    protected $primaryKey = 'uid';
 }

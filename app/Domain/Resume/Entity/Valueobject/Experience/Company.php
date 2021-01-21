@@ -90,4 +90,14 @@ class Company
 
         return $this;
     }
+
+    public function toString()
+    {
+        return json_encode([
+            'company' => $this->company,
+            'position' => $this->position,
+            'timeperiod' => $this->timeperiod,
+            'projects' => $this->projects,
+        ], JSON_UNESCAPED_UNICODE);
+    }
 }
