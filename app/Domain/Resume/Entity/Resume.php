@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Resume\Entity\Valueobject;
+namespace App\Domain\Resume\Entity;
+
+use App\Domain\Resume\Entity\Valueobject\ResumeType;
+use App\Domain\Resume\Entity\Valueobject\ResumeStatus;
 
 class Resume
 {
@@ -18,6 +21,16 @@ class Resume
     
     private $shareCounter;
     private $content;
+
+    public function __construct()
+    {
+        $this->uid = 0;
+        $this->type = ResumeType::FREE;
+        $this->isValid = ResumeStatus::VALID;
+        $this->showEndTime = 0;
+        $this->shareCounter = 0;
+        $this->content = new Content();
+    }
 
     /**
      * Get the value of id
@@ -127,14 +140,9 @@ class Resume
         return $this->shareCounter;
     }
 
-    /**
-     * Set the value of shareCounter
-     *
-     * @return  self
-     */
-    public function setShareCounter($shareCounter)
+    public function share()
     {
-        $this->shareCounter = $shareCounter;
+        $this->shareCounter ++;
 
         return $this;
     }

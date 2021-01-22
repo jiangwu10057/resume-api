@@ -24,6 +24,11 @@ class ErrorCode extends AbstractConstants
     const BAD_REQUEST = 400;
 
     /**
+     * @Message("NOT FOUND")
+     */
+    const NOT_FOUND = 404;
+
+    /**
      * @Message("Method Not Allowed")
      */
     const METHOD_NOT_ALLOWED = 405;
@@ -32,8 +37,6 @@ class ErrorCode extends AbstractConstants
      * @Message("Server Error！")
      */
     const SERVER_ERROR = 500;
-
-    
 
     /**
      * @Message("参数类型错误")

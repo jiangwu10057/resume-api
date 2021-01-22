@@ -22,7 +22,6 @@ class Request
     private $_data;
     private $_sign;
 
-
     public function __construct(RequestInterface $request)
     {
         $this->_request = $request;
@@ -31,14 +30,10 @@ class Request
 
     private function parse()
     {
-        if(!$this->_request->isMethod('post')){
-            throw new RequestException(ErrorCode::METHOD_NOT_ALLOWED);
-        }
-
-        $this->_time = $this->_request->input('.t');
-        $this->_random = $this->_request->input('.r');
-        $this->_data = urldecode($this->_request->input('.d'));
-        $this->_sign = $this->_request->input('.s');
+        $this->_time = $this->_request->input('t');
+        $this->_random = $this->_request->input('r');
+        $this->_data = urldecode($this->_request->input('d', ''));
+        $this->_sign = $this->_request->input('s');
         if(!$this->parseData()){
             throw new RequestException(ErrorCode::BAD_REQUEST);
         }

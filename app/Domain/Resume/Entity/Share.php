@@ -10,6 +10,11 @@ class Share
   private $id;
   private $resume;
 
+  public function __construct()
+  {
+    $this->resume = new Resume();
+  }
+
   /**
    * Get the value of id
    */

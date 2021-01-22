@@ -7,7 +7,7 @@ namespace App\Domain\Resume\Repository\Impl;
 use App\Domain\Resume\Repository\ResumeRepositoryInterface;
 use App\Model\ResumeSharedModel;
 
-class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
+class ResumeShareRepositoryImpl implements ResumeRepositoryInterface
 {
     function save($content)
     {
