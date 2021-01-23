@@ -9,7 +9,7 @@ use App\Domain\Resume\Entity\Valueobject\Personal;
 
 class Content
 {
-    private $id;
+    private $id = 0;
     private $uid;
 
     private $title;

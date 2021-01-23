@@ -13,8 +13,7 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
     public function save($content)
     {
         $model = $this->assignment(new ResumeContentModel(), $content);
-
-        return $model->save();
+        return $model->saveOrFail();
     }
 
     public function update($content)
@@ -22,7 +21,7 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
         $model = ResumeContentModel::query()->find($content->getId());
         $model = $this->assignment($model, $content);
         
-        return $model->save();
+        return $model->saveOrFail();
     }
 
     private function assignment($model, $content)
@@ -32,9 +31,9 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
         $model->target = $content->getTarget();
         $model->contact = $content->getContact();
         $model->personal = $content->getPersonal();
-        $model->work_experiences = $content->getWorkExperience();
-        $model->education_experiences = $content->getEducation();
-        $model->skills = $content->getSkills();
+        $model->work_experiences = json_encode($content->getWorkExperience(), JSON_UNESCAPED_UNICODE);
+        $model->education_experiences = json_encode($content->getEducation(), JSON_UNESCAPED_UNICODE);
+        $model->skills = json_encode($content->getSkills(), JSON_UNESCAPED_UNICODE);
         $model->works = $content->getWorks();
 
         return $model;

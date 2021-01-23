@@ -32,9 +32,9 @@ class ResumeController extends AbstractController
         $data = $request->getData();
 
         $service = new ResumeDomainService();
-        $service->createResumeContent($data);
+        $result = $service->createResumeContent($data);
 
-        return Response::init($this->response)->setData($data)->send();
+        return Response::init($this->response)->setData($result)->send();
     }
 
     /**

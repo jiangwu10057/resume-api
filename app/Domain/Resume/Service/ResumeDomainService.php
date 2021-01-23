@@ -29,10 +29,14 @@ class ResumeDomainService
     {
         $builder = new ResumeContentBuilder();
         $content = $builder->parse($data)->build();
-        try{
-            $this->resumeContentRepository->save($content);
-        }catch(\Exception $e){
 
+        try {
+            $result = $this->resumeContentRepository->save($content);
+            if (!$result) {
+                throw new \Exception("数据插入失败");
+            }
+        } catch (\Exception $e) {
+            throw new BusinessException(ErrorCode::INSERT_FAILED, $e->getMessage());
         }
     }
 
@@ -40,10 +44,9 @@ class ResumeDomainService
     {
         $builder = new ResumeBuilder();
         $resume = $builder->buildPreview();
-        try{
+        try {
             $this->resumeRepository->save($resume);
-        }catch(\Exception $e){
-
+        } catch (\Exception $e) {
         }
     }
 
@@ -51,46 +54,44 @@ class ResumeDomainService
     {
         $builder = new ResumeBuilder();
 
-        if($data['type'] == ResumeType::FREE){
+        if ($data['type'] == ResumeType::FREE) {
             $resume = $builder->buildFree();
-        }else{
+        } else {
             $resume = $builder->buildFee();
         }
-        
-        try{
-            $this->resumeRepository->save($resume);
-        }catch(\Exception $e){
 
+        try {
+            $this->resumeRepository->save($resume);
+        } catch (\Exception $e) {
         }
     }
 
     public function share($data)
     {
-        if(empty($data['id']) || !is_int($data['id'])){
+        if (empty($data['id']) || !is_int($data['id'])) {
             throw new BusinessException(ErrorCode::PARAMETER_TYPE_ERROR);
         }
 
         $resume = $this->resumeRepository->findById($data['id']);
 
-        if(empty($resume)){
+        if (empty($resume)) {
             throw new BusinessException(ErrorCode::NOT_FOUND);
         }
 
         $share = new Share();
         $share->setResume($resume);
 
-        try{
+        try {
             $id = $this->resumeShareRepository->save($share);
-            if(empty($id)){
+            if (empty($id)) {
                 /**
                  * todo
                  * 应该采用ddd的entity的行为操作，然后用repository执行持久化
                  * */
-                $resume->share_counter = $resume->share_counter ++;
+                $resume->share_counter = $resume->share_counter++;
                 $resume->save();
             }
-        }catch(\Exception $e){
-
+        } catch (\Exception $e) {
         }
     }
 }

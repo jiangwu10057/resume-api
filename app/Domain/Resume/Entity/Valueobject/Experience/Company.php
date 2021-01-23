@@ -99,7 +99,7 @@ class Company
         return $this;
     }
 
-    public function toString()
+    public function __toString()
     {
         return json_encode([
             'company' => $this->company,

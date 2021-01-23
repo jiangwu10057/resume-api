@@ -25,7 +25,7 @@
         "hyperf/guzzle": "~2.1.0",
         "hyperf/http-server": "~2.1.0",
         "hyperf/json-rpc": "~2.1.0",
-        "hyperf/logger": "~2.1.0",
+        "hyperf/logger": "^2.1",
         "hyperf/memory": "~2.1.0",
         "hyperf/model-cache": "^2.1",
         "hyperf/process": "~2.1.0",

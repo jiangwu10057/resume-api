@@ -42,4 +42,9 @@ class ErrorCode extends AbstractConstants
      * @Message("参数类型错误")
      */
     const PARAMETER_TYPE_ERROR = 201001;
+
+    /**
+     * @Message("数据插入失败")
+     */
+    const INSERT_FAILED = 201002;
 }

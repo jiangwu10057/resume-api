@@ -121,7 +121,7 @@ class School
         return $this;
     }
 
-    public function toString()
+    public function __toString()
     {
         return json_encode([
             'name' => $this->name,

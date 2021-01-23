@@ -22,4 +22,12 @@ abstract class Model extends BaseModel implements CacheableInterface
     const CREATED_AT = 'created_time';
 
     const UPDATED_AT = 'updated_time';
+
+    public function fromDateTime($value)
+    {
+        if(empty($value)){
+            return time();
+        }
+        return $value->timestamp;
+    }
 }
