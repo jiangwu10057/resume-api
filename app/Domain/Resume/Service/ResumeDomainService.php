@@ -29,7 +29,6 @@ class ResumeDomainService
     {
         $builder = new ResumeContentBuilder();
         $content = $builder->parse($data)->build();
-
         try {
             $result = $this->resumeContentRepository->save($content);
             if (!$result) {

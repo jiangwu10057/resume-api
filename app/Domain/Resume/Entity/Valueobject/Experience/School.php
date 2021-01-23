@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Entity\Valueobject\Experience;
 
-class School
+class School implements \JsonSerializable
 {
     private $name;
     private $education;
+    private $major;
     private $entrance;
     private $graduation;
     private $description;
@@ -16,6 +17,7 @@ class School
     {
         $this->name = '';
         $this->education = '';
+        $this->major = '';
         $this->entrance = '';
         $this->graduation = '';
         $this->description = '';
@@ -121,14 +123,39 @@ class School
         return $this;
     }
 
+    /**
+     * Get the value of major
+     */
+    public function getMajor()
+    {
+        return $this->major;
+    }
+
+    /**
+     * Set the value of major
+     *
+     * @return  self
+     */
+    public function setMajor($major)
+    {
+        $this->major = $major;
+
+        return $this;
+    }
+
     public function __toString()
     {
         return json_encode([
             'name' => $this->name,
             'education' => $this->education,
+            'major' => $this->major,
             'entrance' => $this->entrance,
             'graduation' => $this->graduation,
             'description' => $this->description
         ], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function jsonSerialize() {
+        return $this->__toString();
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Entity\Valueobject;
 
-class Work
+class Work implements \JsonSerializable
 {
     private $name;
     private $url;
@@ -84,5 +84,9 @@ class Work
             'url' => $this->url,
             'description' => $this->description
         ], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function jsonSerialize() {
+        return $this->__toString();
     }
 }

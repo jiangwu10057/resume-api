@@ -9,15 +9,15 @@ class Sex
     /**
      * @var 男
      */
-    const MALE = 1;
+    const MALE = "男";
 
     /**
      * @var 女
      */
-    const FEMALE = 2;
+    const FEMALE = "女";
 
     /**
      * @var 其他???
      */
-    const OTHER = 3;
+    const OTHER = "其他";
 }

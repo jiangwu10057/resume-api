@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Entity\Valueobject;
 
-class Personal
+class Personal implements \JsonSerializable
 {
     private $name;
     private $sex;
@@ -107,5 +107,9 @@ class Personal
             'year' => $this->year,
             'education' => $this->education
         ], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function jsonSerialize() {
+        return $this->__toString();
     }
 }

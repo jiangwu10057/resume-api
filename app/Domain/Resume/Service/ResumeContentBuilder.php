@@ -111,8 +111,8 @@ class ResumeContentBuilder
 
         $personal->setName($data['name'] ?? '');
         $personal->setSex($data['sex'] ?? Sex::MALE);
-        $personal->setYear($data['year'] ?? '');
         $personal->setEducation($data['education'] ?? '');
+        $personal->setYear($data['year'] ?? '');
 
         return $personal;
     }
@@ -130,7 +130,7 @@ class ResumeContentBuilder
             $company->setCompany($one['company'] ?? '');
             $company->setPosition($one['position'] ?? '');
             $company->setTimeperiod($one['timeperiod'] ?? '');
-            $company->setProjects($this->buildProject($one));
+            $company->setProjects($this->buildProjectExperience($one['experiences']));
 
             $workExperience[] = $company;
         }
@@ -138,16 +138,16 @@ class ResumeContentBuilder
         return $workExperience;
     }
 
-    private function buildProject($data)
+    private function buildProjectExperience($data)
     {
         $projects = [];
-        if (empty($one['projects'])) {
+        if (empty($data)) {
             return $projects;
         }
 
-        foreach ($data['projects'] as $project) {
+        foreach ($data as $project) {
             $projectObj = new Project();
-            $projectObj->setName($project['name'] ?? '');
+            $projectObj->setName($project['project'] ?? '');
             $projectObj->setRole($project['role'] ?? '');
             $projectObj->setDescription($project['description'] ?? '');
             $projects[] = $projectObj;
@@ -167,8 +167,9 @@ class ResumeContentBuilder
         foreach ($data['education'] as $one) {
             $school = new School();
 
-            $school->setName($one['name'] ?? '');
+            $school->setName($one['school'] ?? '');
             $school->setEducation($one['education'] ?? '');
+            $school->setMajor($one['major'] ?? '');
             $school->setEntrance($one['entrance'] ?? '');
             $school->setGraduation($one['graduation'] ?? '');
             $school->setDescription($one['description'] ?? '');
@@ -228,6 +229,8 @@ class ResumeContentBuilder
 
             $skill->setName($one['name'] ?? '');
             $skill->setDegree($one['degree'] ?? 0);
+
+            $skills[] = $skill;
         }
 
         return $skills;

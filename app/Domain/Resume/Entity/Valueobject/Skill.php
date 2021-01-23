@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Entity\Valueobject;
 
-class Skill
+class Skill implements \JsonSerializable
 {
 
     private $name;
@@ -62,5 +62,9 @@ class Skill
             'name' => $this->name,
             'degree' => $this->degree,
         ], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function jsonSerialize() {
+        return $this->__toString();
     }
 }

@@ -9,10 +9,10 @@ use App\Exception\RequestException;
 use Hyperf\HttpServer\Contract\RequestInterface;
 
 /**
- * - t时间戳，与r参数一起降低重放攻击的可能性；有效期3分钟
- * - r随机数，与t参数一起降低重放攻击的可能性来；存储时间3分钟
- * - d是按字母排序后的json数据的base64值，真正的数据
- * - s是按字母排序后json数据的md5值，用于校验完整性
+ * - t时间戳，与r参数一起降低重放攻击的可能性；有效期3分钟;长度13位
+ * - r随机数，与t参数一起降低重放攻击的可能性来；存储时间3分钟;长度
+ * - d是真正的数据
+ * - s=md5(d+r+t)，用于校验完整性
  */
 class Request
 {
@@ -41,7 +41,6 @@ class Request
 
     private function parseData()
     {
-        $this->_data = base64_decode($this->_data);
         $this->_data = json_decode($this->_data, true);
         
         if(is_null($this->_data)){

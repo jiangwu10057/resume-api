@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\V1;
 
+use App\Controller\AbstractController;
+use App\Domain\Resume\Service\ResumeDomainService;
 use App\Infrastructure\Common\Api\Request;
 use App\Infrastructure\Common\Api\Response;
-use App\Domain\Resume\Service\ResumeDomainService;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\RequestMapping;
 
 /**
- * @Controller()
+ * @Controller(prefix="/v1/resume")
  */
 class ResumeController extends AbstractController
 {

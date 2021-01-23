@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Entity\Valueobject\Experience;
 
-class Company
+class Company implements \JsonSerializable
 {
     private $company;
     private $position;
@@ -107,5 +107,9 @@ class Company
             'timeperiod' => $this->timeperiod,
             'projects' => $this->projects,
         ], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function jsonSerialize() {
+        return $this->__toString();
     }
 }

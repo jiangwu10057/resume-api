@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Entity\Valueobject;
 
-class Contact
+class Contact implements \JsonSerializable
 {
     private $mobile;
     private $email;
@@ -84,5 +84,9 @@ class Contact
             'mobile' => $this->mobile,
             'qq' => $this->qq
         ], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function jsonSerialize() {
+        return $this->__toString();
     }
 }
