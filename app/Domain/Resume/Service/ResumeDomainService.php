@@ -35,6 +35,8 @@ class ResumeDomainService
             if (!$result) {
                 throw new \Exception("数据插入失败");
             }
+
+            return $result;
         } catch (\Exception $e) {
             throw new BusinessException(ErrorCode::INSERT_FAILED, $e->getMessage());
         }
