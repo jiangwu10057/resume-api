@@ -11,6 +11,7 @@ use App\Domain\Resume\Repository\Impl\ResumeContentRepositoryImpl;
 use App\Domain\Resume\Repository\Impl\ResumeRepositoryImpl;
 use App\Domain\Resume\Repository\Impl\ResumeShareRepositoryImpl;
 use App\Exception\BusinessException;
+use App\Infrastructure\Common\Formatter\MarkdownFormater;
 
 class ResumeDomainService
 {
@@ -65,6 +66,27 @@ class ResumeDomainService
             $this->resumeRepository->save($resume);
         } catch (\Exception $e) {
         }
+    }
+
+    public function preview($data)
+    {
+        if (empty($data['id']) || !is_int($data['id'])) {
+            throw new BusinessException(ErrorCode::PARAMETER_TYPE_ERROR);
+        }
+
+        $content = $this->resumeContentRepository->findById($data['id']);
+
+        if (empty($content)) {
+            throw new BusinessException(ErrorCode::NOT_FOUND);
+        }
+
+        return $this->format($content);
+    }
+
+    private function format($content)
+    {
+        $formater = new MarkdownFormater();
+        return $formater->format($content);
     }
 
     public function share($data)
