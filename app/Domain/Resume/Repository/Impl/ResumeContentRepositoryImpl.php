@@ -13,7 +13,10 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
     public function save($content)
     {
         $model = $this->assignment(new ResumeContentModel(), $content);
-        return $model->saveOrFail();
+        if($model->saveOrFail()){
+            return $model->id;
+        }
+        return 0;
     }
 
     public function update($content)
