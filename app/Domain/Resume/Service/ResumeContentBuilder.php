@@ -6,6 +6,7 @@ namespace App\Domain\Resume\Service;
 
 use App\Domain\Resume\Entity\Content;
 use App\Domain\Resume\Entity\Valueobject\Contact;
+use App\Domain\Resume\Entity\Valueobject\Except;
 use App\Domain\Resume\Entity\Valueobject\Skill;
 use App\Domain\Resume\Entity\Valueobject\Work;
 use App\Domain\Resume\Entity\Valueobject\Works;
@@ -25,6 +26,7 @@ class ResumeContentBuilder
     private $education = [];
     private $works = [];
     private $skills = [];
+    private $except = [];
 
     public function setTitle($title)
     {
@@ -43,6 +45,13 @@ class ResumeContentBuilder
     public function setContact($contact)
     {
         $this->contact = $contact;
+
+        return $this;
+    }
+
+    public function setExcept($except)
+    {
+        $this->except = $except;
 
         return $this;
     }
@@ -97,6 +106,23 @@ class ResumeContentBuilder
         $contact->setQq($data['qq'] ?? '');
 
         return $contact;
+    }
+
+    private function buildExcept($data)
+    {
+        $except = new Except();
+
+        if (empty($data['except'])) {
+            return $except;
+        }
+
+        $data = $data['except'];
+
+        $except->setPosition($data['position'] ?? '');
+        $except->setSalary($data['salary'] ?? '');
+        $except->setCity($data['city'] ?? '');
+
+        return $except;
     }
 
     private function buildPersonal($data)
@@ -241,6 +267,7 @@ class ResumeContentBuilder
         $this->setTitle($data['title'] ?? '');
         $this->setTarget($data['target'] ?? '');
         $this->setContact($this->buildContact($data));
+        $this->setExcept($this->buildExcept($data));
         $this->setPersonal($this->buildPersonal($data));
         $this->setWorkExperience($this->buildWorkExperience($data));
         $this->setEducation($this->buildEducation($data));
@@ -256,6 +283,7 @@ class ResumeContentBuilder
 
         $content->setTitle($this->title);
         $content->setTarget($this->target);
+        $content->setExcept($this->except);
         $content->setContact($this->contact ?? new Contact());
         $content->setPersonal($this->personal ?? new Personal());
         $content->setWorkExperience($this->workExperience);

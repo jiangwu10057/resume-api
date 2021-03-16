@@ -33,6 +33,7 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
         $model->title = $content->getTitle();
         $model->target = $content->getTarget();
         $model->contact = $content->getContact();
+        $model->except = $content->getExcept();
         $model->personal = $content->getPersonal();
         $model->work_experiences = json_encode($content->getWorkExperience(), JSON_UNESCAPED_UNICODE);
         $model->education_experiences = json_encode($content->getEducation(), JSON_UNESCAPED_UNICODE);
