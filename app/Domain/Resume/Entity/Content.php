@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Resume\Entity;
 
 use App\Domain\Resume\Entity\Valueobject\Contact;
+use App\Domain\Resume\Entity\Valueobject\Except;
 use App\Domain\Resume\Entity\Valueobject\Personal;
 
 class Content
@@ -16,6 +17,7 @@ class Content
     private $target;
     
     private $contact;
+    private $except;
     private $personal;
     private $workExperience;
     private $education;
@@ -30,6 +32,7 @@ class Content
         $this->target = '';
 
         $this->contact = new Contact();
+        $this->except = new Except();
         $this->personal = new Personal();
         $this->workExperience = [];
         $this->education = [];
@@ -233,6 +236,26 @@ class Content
     public function setUid($uid)
     {
         $this->uid = $uid;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of except
+     */
+    public function getExcept()
+    {
+        return $this->except;
+    }
+
+    /**
+     * Set the value of except
+     *
+     * @return  self
+     */
+    public function setExcept($except)
+    {
+        $this->except = $except;
 
         return $this;
     }
