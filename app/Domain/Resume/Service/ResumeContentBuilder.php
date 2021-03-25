@@ -18,6 +18,7 @@ use App\Domain\Resume\Entity\Valueobject\Sex;
 
 class ResumeContentBuilder
 {
+    private $uid = 0;
     private $title = '';
     private $target = '';
     private $contact;
@@ -27,6 +28,13 @@ class ResumeContentBuilder
     private $works = [];
     private $skills = [];
     private $except = [];
+
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+
+        return $this;
+    }
 
     public function setTitle($title)
     {
@@ -264,6 +272,7 @@ class ResumeContentBuilder
 
     public function parse($data)
     {
+        $this->setUid($data['uid'] ?? 0);
         $this->setTitle($data['title'] ?? '');
         $this->setTarget($data['target'] ?? '');
         $this->setContact($this->buildContact($data));
@@ -281,6 +290,7 @@ class ResumeContentBuilder
     {
         $content = new Content();
 
+        $content->setUid($this->uid);
         $content->setTitle($this->title);
         $content->setTarget($this->target);
         $content->setExcept($this->except);
