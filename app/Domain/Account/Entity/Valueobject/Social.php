@@ -2,37 +2,42 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Account\Socail\Entity\Valueobject;
+namespace App\Domain\Account\Entity\Valueobject;
 
-class Wechat implements Third
+abstract class Social implements \JsonSerializable
 {
+    private $id;
+    private $uid;
+    private $openid;
     private $avatarUrl;
     private $address;
     private $gender;
     private $nickName;
-    private $openid;
     private $source;
 
     public function __construct()
     {
+        $this->id = '';
+        $this->uid = '';
         $this->avatarUrl = '';
         $this->address = new Address();
         $this->gender = '';
         $this->nickName = '';
         $this->openid = '';
         $this->uid = '';
-        $this->source = 1;
     }
 
     public function __toString()
     {
         return json_encode([
+            'id' => $this->id,
+            'uid' => $this->uid,
+            'openid' => $this->openid,
             'avatarUrl' => $this->avatarUrl,
             'address' => $this->address,
             'gender' => $this->gender,
             'nickName' => $this->nickName,
-            'openid' => $this->openid,
-            'uid' => $this->uid,
+            'source' => $this->source,
         ], JSON_UNESCAPED_UNICODE);
     }
 
@@ -140,8 +145,63 @@ class Wechat implements Third
         return $this;
     }
 
+    /**
+     * Get the value of uid
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * Set the value of uid
+     *
+     * @return  self
+     */
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of source
+     */
     public function getSource()
     {
         return $this->source;
+    }
+
+    /**
+     * Set the value of source
+     *
+     * @return  self
+     */
+    protected function setSource($source)
+    {
+        $this->source = $source;
+
+        return $this;
     }
 }

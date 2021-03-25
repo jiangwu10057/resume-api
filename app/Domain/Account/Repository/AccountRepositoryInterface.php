@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace App\Domain\Account\Repository;
 
+use App\Domain\Account\Entity\Account;
+
 interface AccountRepositoryInterface
 {
-    function create($info);
+    function create(Account $info) : int;
 
-    function find($uid);
+    function find(int $uid) : Account;
 
-    function login($info);
+    function findByMobile(string $uid) : Account;
+
+    function changePassword(string $uid, string $password) : bool;
 }

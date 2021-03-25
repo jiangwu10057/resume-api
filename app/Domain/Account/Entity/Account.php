@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Account\Entity\Valueobject;
+namespace App\Domain\Account\Entity;
 
 class Account implements \JsonSerializable
 {
@@ -10,14 +10,11 @@ class Account implements \JsonSerializable
     private $password;
     private $mobile;
 
-    private $thirdInfo;
-
     public function __construct()
     {
         $this->uid = '';
         $this->password = '';
         $this->mobile = '';
-        $this->thirdInfo = [];
     }
 
     public function __toString()
@@ -26,7 +23,6 @@ class Account implements \JsonSerializable
             'uid' => $this->uid,
             'password' => $this->password,
             'mobile' => $this->mobile,
-            'thirdInfo' => $this->thirdInfo,
         ], JSON_UNESCAPED_UNICODE);
     }
 
@@ -51,26 +47,6 @@ class Account implements \JsonSerializable
     public function setUid($uid)
     {
         $this->uid = $uid;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of thirdInfo
-     */
-    public function getThirdInfo()
-    {
-        return $this->thirdInfo;
-    }
-
-    /**
-     * Set the value of thirdInfo
-     *
-     * @return  self
-     */
-    public function setThirdInfo($thirdInfo)
-    {
-        $this->thirdInfo = $thirdInfo;
 
         return $this;
     }
