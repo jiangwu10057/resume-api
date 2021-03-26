@@ -49,12 +49,12 @@ class Request
     private function validate()
     {
         if(!$this->validateTime()){
-            throw new RequestException(ErrorCode::BAD_REQUEST, '请求重复 验证失败');
+            throw new RequestException(ErrorCode::BAD_REQUEST, '时间 验证失败');
             return false;
         }
 
         if($this->isDuplicate()){
-            throw new RequestException(ErrorCode::BAD_REQUEST, '时间 验证失败');
+            throw new RequestException(ErrorCode::BAD_REQUEST, '请求重复 验证失败');
             return false;
         }
 
@@ -87,7 +87,8 @@ class Request
         $time = intval($this->_time / 1000);
         $currentTime = time();
         
-        if($time >= $currentTime - $this->validTimeSeconds && $time <= $currentTime){
+        // + 3 为了避免客户端时间和服务端时间有偏差，这个偏差固定设置为10，如果客户端时间比服务端时间还要晚3s就认定是异常
+        if($time >= $currentTime - $this->validTimeSeconds && $time <= $currentTime + 3){
             return true;
         }
         return false;
