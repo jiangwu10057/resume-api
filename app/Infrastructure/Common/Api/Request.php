@@ -49,14 +49,17 @@ class Request
     private function validate()
     {
         if(!$this->validateTime()){
+            throw new RequestException(ErrorCode::BAD_REQUEST, '请求重复 验证失败');
             return false;
         }
 
         if($this->isDuplicate()){
+            throw new RequestException(ErrorCode::BAD_REQUEST, '时间 验证失败');
             return false;
         }
 
         if(!$this->validateSign()){
+            throw new RequestException(ErrorCode::BAD_REQUEST, 'md5 验证失败');
             return false;
         }
 
@@ -87,7 +90,6 @@ class Request
         if($time >= $currentTime - $this->validTimeSeconds && $time <= $currentTime){
             return true;
         }
-
         return false;
     }
 
