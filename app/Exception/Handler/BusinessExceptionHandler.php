@@ -4,28 +4,31 @@ declare(strict_types=1);
 
 namespace App\Exception\Handler;
 
-use Hyperf\Contract\StdoutLoggerInterface;
+use App\Exception\BusinessException;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Stream\SwooleStream;
+use Hyperf\Logger\LoggerFactory;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
-use App\Exception\BusinessException;
 
 class BusinessExceptionHandler extends ExceptionHandler
 {
     /**
-     * @var StdoutLoggerInterface
+     * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
 
-    public function __construct(StdoutLoggerInterface $logger)
+    public function __construct(LoggerFactory $loggerFactory)
     {
-        $this->logger = $logger;
+        $this->logger = $loggerFactory->get('log', 'error');
     }
 
     public function handle(Throwable $throwable, ResponseInterface $response)
     {
         if ($throwable instanceof BusinessException) {
+            $this->logger->error(sprintf('%s[%s] in %s', $throwable->getMessage(), $throwable->getLine(), $throwable->getFile()));
+            $this->logger->error($throwable->getTraceAsString());
+
             $data = json_encode([
                 'code' => $throwable->getCode(),
                 'message' => $throwable->getMessage(),

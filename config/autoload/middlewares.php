@@ -11,9 +11,11 @@ declare(strict_types=1);
  */
 
  use App\Middleware\CorsMiddleware;
+ use App\Middleware\RequestLogMiddleware;
 
 return [
     'http' => [
+        RequestLogMiddleware::class,
         CorsMiddleware::class
     ],
 ];

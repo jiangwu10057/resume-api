@@ -38,6 +38,7 @@ class ResumeDomainService
 
             return $result;
         } catch (\Exception $e) {
+            //e->getMessage 会把sql暴露
             throw new BusinessException(ErrorCode::INSERT_FAILED, $e->getMessage());
         }
     }

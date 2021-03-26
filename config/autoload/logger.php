@@ -22,7 +22,41 @@ return [
             'class' => Monolog\Formatter\LineFormatter::class,
             'constructor' => [
                 'format' => null,
-                'dateFormat' => 'Y-m-d H:i:s',
+                'dateFormat' => 'U.u',
+                'allowInlineLineBreaks' => true,
+            ],
+        ],
+    ],
+    'error' => [
+        'handler' => [
+            'class' => Monolog\Handler\StreamHandler::class,
+            'constructor' => [
+                'stream' => BASE_PATH . '/runtime/logs/error.log',
+                'level' => Monolog\Logger::INFO,
+            ],
+        ],
+        'formatter' => [
+            'class' => Monolog\Formatter\LineFormatter::class,
+            'constructor' => [
+                'format' => null,
+                'dateFormat' => 'U.u',
+                'allowInlineLineBreaks' => true,
+            ],
+        ],
+    ],
+    'request' => [
+        'handler' => [
+            'class' => Monolog\Handler\StreamHandler::class,
+            'constructor' => [
+                'stream' => BASE_PATH . '/runtime/logs/request.log',
+                'level' => Monolog\Logger::DEBUG,
+            ],
+        ],
+        'formatter' => [
+            'class' => Monolog\Formatter\LineFormatter::class,
+            'constructor' => [
+                'format' => '%datetime% %message% %context% %extra%',
+                'dateFormat' => 'U.u',
                 'allowInlineLineBreaks' => true,
             ],
         ],
