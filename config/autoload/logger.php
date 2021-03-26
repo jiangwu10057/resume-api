@@ -22,7 +22,7 @@ return [
             'class' => Monolog\Formatter\LineFormatter::class,
             'constructor' => [
                 'format' => null,
-                'dateFormat' => 'U.u',
+                'dateFormat' => 'Y-m-d H:i:s U.u',
                 'allowInlineLineBreaks' => true,
             ],
         ],
@@ -39,7 +39,7 @@ return [
             'class' => Monolog\Formatter\LineFormatter::class,
             'constructor' => [
                 'format' => null,
-                'dateFormat' => 'U.u',
+                'dateFormat' => 'Y-m-d H:i:s U.u',
                 'allowInlineLineBreaks' => true,
             ],
         ],
@@ -55,8 +55,8 @@ return [
         'formatter' => [
             'class' => Monolog\Formatter\LineFormatter::class,
             'constructor' => [
-                'format' => '%datetime% %message% %context% %extra%',
-                'dateFormat' => 'U.u',
+                'format' => '%datetime% %message% %context% %extra%\n',
+                'dateFormat' => 'Y-m-d H:i:s U.u',
                 'allowInlineLineBreaks' => true,
             ],
         ],

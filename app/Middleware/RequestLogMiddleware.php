@@ -42,7 +42,7 @@ class RequestLogMiddleware implements MiddlewareInterface
     {
 
         if ($request->getMethod() != 'OPTIONS') {
-            $this->logger->info(json_encode($this->request->all(), JSON_UNESCAPED_UNICODE));
+            $this->logger->info($this->request->url() . ' ' . json_encode($this->request->all(), JSON_UNESCAPED_UNICODE));
         }
 
         return $handler->handle($request);
