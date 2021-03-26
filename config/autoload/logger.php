@@ -55,7 +55,7 @@ return [
         'formatter' => [
             'class' => Monolog\Formatter\LineFormatter::class,
             'constructor' => [
-                'format' => '%datetime% %message% %context% %extra%\n',
+                'format' => "%datetime% %message% %context% %extra%\n",
                 'dateFormat' => 'Y-m-d H:i:s U.u',
                 'allowInlineLineBreaks' => true,
             ],
