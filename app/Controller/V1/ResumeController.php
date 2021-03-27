@@ -39,6 +39,20 @@ class ResumeController extends AbstractController
     }
 
     /**
+     * @RequestMapping(path="update", methods="post")
+     */
+    public function update()
+    {
+        $request = new Request($this->request);
+        $data = $request->getData();
+
+        $service = new ResumeDomainService();
+        $result = $service->updateResumeContent($data);
+
+        return Response::init($this->response)->setData($result)->send();
+    }
+
+    /**
      * @RequestMapping(path="preview", methods="post")
      */
     public function preview()

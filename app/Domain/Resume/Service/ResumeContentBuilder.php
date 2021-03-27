@@ -14,10 +14,10 @@ use App\Domain\Resume\Entity\Valueobject\Experience\Company;
 use App\Domain\Resume\Entity\Valueobject\Experience\Project;
 use App\Domain\Resume\Entity\Valueobject\Experience\School;
 use App\Domain\Resume\Entity\Valueobject\Personal;
-use App\Domain\Resume\Entity\Valueobject\Sex;
 
 class ResumeContentBuilder
 {
+    private $id = 0;
     private $uid = 0;
     private $title = '';
     private $target = '';
@@ -28,6 +28,13 @@ class ResumeContentBuilder
     private $works = [];
     private $skills = [];
     private $except = [];
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     public function setUid($uid)
     {
@@ -289,6 +296,10 @@ class ResumeContentBuilder
     public function build()
     {
         $content = new Content();
+
+        if($this->id){
+            $content->setId($this->id);
+        }
 
         $content->setUid($this->uid);
         $content->setTitle($this->title);

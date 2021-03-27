@@ -43,6 +43,22 @@ class ResumeDomainService
         }
     }
 
+    public function updateResumeContent($data)
+    {
+        $builder = new ResumeContentBuilder();
+        $content = $builder->parse($data)->build();
+        try {
+            $result = $this->resumeContentRepository->update($content);
+            if (!$result) {
+                throw new \Exception("数据更新失败");
+            }
+
+            return $result;
+        } catch (\Exception $e) {
+            throw new BusinessException(ErrorCode::UPDATE_FAILED);
+        }
+    }
+
     public function createPreviewResume($data)
     {
         $builder = new ResumeBuilder();

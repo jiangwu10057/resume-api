@@ -47,4 +47,9 @@ class ErrorCode extends AbstractConstants
      * @Message("数据插入失败")
      */
     const INSERT_FAILED = 201002;
+
+    /**
+     * @Message("数据更新失败")
+     */
+    const UPDATE_FAILED = 201002;
 }
