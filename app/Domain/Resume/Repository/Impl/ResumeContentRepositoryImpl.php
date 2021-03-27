@@ -9,7 +9,6 @@ use App\Model\ResumeContentModel;
 
 class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
 {
-
     public function save($content)
     {
         $model = $this->assignment(new ResumeContentModel(), $content);
@@ -21,9 +20,8 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
 
     public function update($content)
     {
-        $model = ResumeContentModel::query()->find($content->getId());
+        $model = ResumeContentModel::find($content->getId());
         $model = $this->assignment($model, $content);
-        
         return $model->saveOrFail();
     }
 

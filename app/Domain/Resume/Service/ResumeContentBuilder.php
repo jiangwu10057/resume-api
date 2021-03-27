@@ -279,6 +279,7 @@ class ResumeContentBuilder
 
     public function parse($data)
     {
+        $this->setId($data['id'] ?? 0);
         $this->setUid($data['uid'] ?? 0);
         $this->setTitle($data['title'] ?? '');
         $this->setTarget($data['target'] ?? '');
