@@ -14,7 +14,7 @@ class Personal implements \JsonSerializable
     public function __construct()
     {
         $this->name = '';
-        $this->sex = Sex::MALE;
+        $this->sex = '';
         $this->year = '';
         $this->education = '';
     }
