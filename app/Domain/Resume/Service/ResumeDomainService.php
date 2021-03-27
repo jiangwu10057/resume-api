@@ -100,6 +100,21 @@ class ResumeDomainService
         return $this->format($content);
     }
 
+    public function my($data)
+    {
+        if (empty($data['uid']) || !is_int($data['uid'])) {
+            throw new BusinessException(ErrorCode::PARAMETER_TYPE_ERROR);
+        }
+
+        $content = $this->resumeContentRepository->findByUser($data['uid']);
+
+        if (empty($content)) {
+            throw new BusinessException(ErrorCode::NOT_FOUND);
+        }
+
+        return $this->format($content);
+    }
+
     private function format($content)
     {
         $formater = new MarkdownFormater();

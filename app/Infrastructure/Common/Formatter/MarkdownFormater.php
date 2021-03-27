@@ -13,7 +13,7 @@ class MarkdownFormater implements FormatterInterface
 
     public function format($data)
     {
-        unset($data['created_time'], $data['id'], $data['uid'], $data['updated_time']);
+        unset($data['created_time'], $data['uid'], $data['updated_time']);
         
         foreach ($this->jsonkeys as $key){
             $data[$key] = json_decode($data[$key], true);

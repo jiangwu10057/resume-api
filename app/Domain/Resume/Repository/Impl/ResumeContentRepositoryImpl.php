@@ -4,21 +4,23 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Repository\Impl;
 
+use App\Domain\Resume\Entity\Content;
 use App\Domain\Resume\Repository\ResumeRepositoryInterface;
+use App\Model\Model;
 use App\Model\ResumeContentModel;
 
 class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
 {
-    public function save($content)
+    public function save(Content $content): int
     {
         $model = $this->assignment(new ResumeContentModel(), $content);
-        if($model->saveOrFail()){
+        if ($model->saveOrFail()) {
             return $model->id;
         }
         return 0;
     }
 
-    public function update($content)
+    public function update(Content $content): bool
     {
         $model = ResumeContentModel::find($content->getId());
         $model = $this->assignment($model, $content);
@@ -41,20 +43,20 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
         return $model;
     }
 
-    public function delete($id)
+    public function delete(int $id): bool
     {
         $model = ResumeContentModel::query()->find($id);
-        
+
         return $model->delete();
     }
 
-    function findById($id)
+    function findById($id): Model
     {
         return ResumeContentModel::query()->find($id);
     }
 
-    function queryByUser($user)
+    function findByUser($user): Model
     {
-        return ResumeContentModel::where('uid', $user)->firstOrFail();
+        return ResumeContentModel::where('uid', $user)->orderBy('id', 'desc')->firstOrFail();
     }
 }

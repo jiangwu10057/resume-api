@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Repository;
 
+use App\Domain\Resume\Entity\Content;
+use App\Model\Model;
+
 interface ResumeRepositoryInterface
 {
-    function save($content);
+    function save(Content $content) : int;
 
-    function update($content);
+    function update(Content $content) : bool;
 
-    function delete($id);
+    function delete(int $id) : bool;
 
-    function findById($id);
+    function findById(int $id) : Model;
 
-    function queryByUser($user);
+    function findByUser(int $uid) : Model;
 }

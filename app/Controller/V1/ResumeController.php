@@ -67,6 +67,20 @@ class ResumeController extends AbstractController
     }
 
     /**
+     * @RequestMapping(path="my", methods="post")
+     */
+    public function my()
+    {
+        $request = new Request($this->request);
+        $data = $request->getData();
+
+        $service = new ResumeDomainService();
+        $result = $service->my($data);
+
+        return Response::init($this->response)->setData($result)->send();
+    }
+
+    /**
      * @RequestMapping(path="share", methods="post")
      */
     public function share()
