@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 return [
     'http' => [
-        RequestLogMiddleware::class,
+        // RequestLogMiddleware::class,
         CorsMiddleware::class
     ],
 ];

@@ -9,8 +9,21 @@ use App\Domain\Resume\Repository\ResumeRepositoryInterface;
 use App\Model\Model;
 use App\Model\ResumeContentModel;
 
+// use Hyperf\Cache\Annotation\Cacheable;
+// use Hyperf\Cache\Annotation\CacheEvict;
+
+// use Hyperf\Di\Annotation\Inject;
+// use Hyperf\Cache\Listener\DeleteListenerEvent;
+// use Psr\EventDispatcher\EventDispatcherInterface;
+
 class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
 {
+    //  /**
+    //  * @Inject
+    //  * @var EventDispatcherInterface
+    //  */
+    // protected $dispatcher;
+
     public function save(Content $content): int
     {
         $model = $this->assignment(new ResumeContentModel(), $content);
@@ -24,7 +37,11 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
     {
         $model = ResumeContentModel::find($content->getId());
         $model = $this->assignment($model, $content);
-        return $model->saveOrFail();
+        $result =  $model->saveOrFail();
+        if($result){
+            // $this->dispatcher->dispatch(new DeleteListenerEvent('resume-content-update', [$content->getId()]));
+        }
+        return $result;
     }
 
     private function assignment($model, $content)
@@ -43,6 +60,9 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
         return $model;
     }
 
+    // /**
+    //  * @CacheEvict(prefix="rc", value="#{id}")
+    //  */
     public function delete(int $id): bool
     {
         $model = ResumeContentModel::query()->find($id);
@@ -50,6 +70,9 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
         return $model->delete();
     }
 
+    // /**
+    //  * @Cacheable(prefix="rc", value="#{id}", ttl=7200, listener="resume-content-update")
+    //  */
     function findById($id): Model
     {
         return ResumeContentModel::query()->find($id);

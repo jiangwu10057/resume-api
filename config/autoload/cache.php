@@ -13,6 +13,6 @@ return [
     'default' => [
         'driver' => Hyperf\Cache\Driver\RedisDriver::class,
         'packer' => App\Infrastructure\Packer\SmartPHPSerializerPacker::class,
-        'prefix' => 'resume:',
+        'prefix' => 'rapi:',
     ],
 ];
