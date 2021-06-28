@@ -74,8 +74,6 @@ class SocialAccountFactory
         $wechat->setGender($model->gender);
         $wechat->setNickName($model->nickName);
         $wechat->setOpenid($model->openid);
-        $wechat->setUid($model->uid);
-
         return $wechat;
     }
 
