@@ -96,7 +96,7 @@ class Request
 
     private function validateSign()
     {
-        $sign = strtoupper(md5($this->_time . $this->_random . $this->_data));
+        $sign = strtoupper(md5($this->_time . "" . $this->_random . $this->_data));
 
         return $sign == $this->_sign;
     }

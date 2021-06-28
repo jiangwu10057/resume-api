@@ -9,12 +9,14 @@ class Account implements \JsonSerializable
     private $uid;
     private $password;
     private $mobile;
+    private $sid;
 
     public function __construct()
     {
         $this->uid = '';
         $this->password = '';
         $this->mobile = '';
+        $this->sid = '';
     }
 
     public function __toString()
@@ -23,6 +25,7 @@ class Account implements \JsonSerializable
             'uid' => $this->uid,
             'password' => $this->password,
             'mobile' => $this->mobile,
+            'sid' => $this->sid
         ], JSON_UNESCAPED_UNICODE);
     }
 
@@ -47,6 +50,7 @@ class Account implements \JsonSerializable
     public function setUid($uid)
     {
         $this->uid = $uid;
+        $this->sid = $this->getSid();
 
         return $this;
     }
@@ -89,5 +93,13 @@ class Account implements \JsonSerializable
         $this->mobile = $mobile;
 
         return $this;
+    }
+
+    /**
+     * Get the value of sid
+     */
+    public function getSid()
+    {
+        return sprintf("%u", crc32("".$this->uid));
     }
 }

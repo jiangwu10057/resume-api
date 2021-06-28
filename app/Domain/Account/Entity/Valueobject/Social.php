@@ -14,6 +14,7 @@ abstract class Social implements \JsonSerializable
     private $gender;
     private $nickName;
     private $source;
+    private $sid;
 
     public function __construct()
     {
@@ -24,20 +25,19 @@ abstract class Social implements \JsonSerializable
         $this->gender = '';
         $this->nickName = '';
         $this->openid = '';
-        $this->uid = '';
+        $this->sid = '';
     }
 
     public function __toString()
     {
         return json_encode([
-            'id' => $this->id,
-            'uid' => $this->uid,
             'openid' => $this->openid,
             'avatarUrl' => $this->avatarUrl,
             'address' => $this->address,
             'gender' => $this->gender,
             'nickName' => $this->nickName,
             'source' => $this->source,
+            'sid' => $this->sid,
         ], JSON_UNESCAPED_UNICODE);
     }
 
@@ -161,6 +161,7 @@ abstract class Social implements \JsonSerializable
     public function setUid($uid)
     {
         $this->uid = $uid;
+        $this->sid = $this->getSid();
 
         return $this;
     }
@@ -203,5 +204,13 @@ abstract class Social implements \JsonSerializable
         $this->source = $source;
 
         return $this;
+    }
+
+    /**
+     * Get the value of sid
+     */
+    public function getSid()
+    {
+        return sprintf("%u", crc32("".$this->uid));
     }
 }
