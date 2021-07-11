@@ -4,9 +4,17 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Service\Impl;
 
-interface UserDomainService
-{
-    public function saveMPCode($uid, $codeContent): bool;
+use App\Domain\User\Service\UserDomainServiceInterface;
 
-    public function findMPCodeByUid($uid): string;
+class UserDomainServiceImpl implements UserDomainServiceInterface
+{
+    public function saveMPCode($uid, $codeContent): bool
+    {
+        return false;
+    }
+
+    public function findMPCodeByUid($uid): string
+    {
+        return "";
+    }
 }
