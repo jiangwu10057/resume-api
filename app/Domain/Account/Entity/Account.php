@@ -6,17 +6,17 @@ namespace App\Domain\Account\Entity;
 
 class Account implements \JsonSerializable
 {
+    private $id;
     private $uid;
     private $password;
     private $mobile;
-    private $sid;
 
     public function __construct()
     {
+        $this->id = 0;
         $this->uid = '';
         $this->password = '';
         $this->mobile = '';
-        $this->sid = '';
     }
 
     public function __toString()
@@ -25,9 +25,10 @@ class Account implements \JsonSerializable
             'uid' => $this->uid,
             'password' => $this->password,
             'mobile' => $this->mobile,
-            'sid' => $this->sid
         ], JSON_UNESCAPED_UNICODE);
     }
+
+
 
     public function jsonSerialize()
     {
@@ -50,8 +51,6 @@ class Account implements \JsonSerializable
     public function setUid($uid)
     {
         $this->uid = $uid;
-        $this->sid = $this->getSid();
-
         return $this;
     }
 
@@ -96,10 +95,22 @@ class Account implements \JsonSerializable
     }
 
     /**
-     * Get the value of sid
+     * Get the value of id
      */
-    public function getSid()
+    public function getId()
     {
-        return sprintf("%u", crc32("".$this->uid));
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }

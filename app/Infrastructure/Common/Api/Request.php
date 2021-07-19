@@ -37,9 +37,9 @@ class Request
         $this->_data = urldecode($this->_request->input('d', ''));
         $this->_sign = $this->_request->input('s');
 
-        if(!$this->validate()){
-            throw new RequestException(ErrorCode::BAD_REQUEST, '验证失败');
-        }
+        // if(!$this->validate()){
+        //     throw new RequestException(ErrorCode::BAD_REQUEST, '验证失败');
+        // }
 
         if(!$this->parseData()){
             throw new RequestException(ErrorCode::BAD_REQUEST, '数据解析失败');

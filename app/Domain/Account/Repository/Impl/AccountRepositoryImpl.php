@@ -20,34 +20,37 @@ class AccountRepositoryImpl implements AccountRepositoryInterface
         $this->model = new AccountModel();
     }
 
-    public function create(Account $info) : int
+    public function create(Account $info) : ?AccountModel
     {
         $model = $this->assignment($this->model, $info);
         if($model->saveOrFail()){
-            return $model->id;
+            $model->uid = sprintf("%u", crc32("".$model->id));
+            $model->saveOrFail();
+            return $model;
         }
-        return 0;
+        return null;
     }
 
     private function assignment($model, $info)
     {
-        if($info->getUid()){
-            $model->id = $info->getUid();
+        if($info->getId()){
+            $model->id = $info->getId();
         }
         
+        $model->uid = $info->getUid();
         $model->password = $info->getPassword();
         $model->mobile = $info->getMobile();
 
         return $model;
     }
 
-    public function find(int $uid) : Account
+    public function find(int $uid) : ?Account
     {
         $model = AccountModel::query()->find($uid);
         return AccountFactory::fromModel($model);
     }
 
-    function findByMobile(string $uid) : Account
+    function findByMobile(string $uid) : ?Account
     {
         return new Account();
     }

@@ -61,8 +61,8 @@ class AccountDomainService implements AccountDomainServiceInterface
             return $social;
         } catch (\Throwable $ex) {
             Db::rollBack();
-
-            throw new BusinessException($ex->getCode(), $ex->getMessage());
+            
+            throw new BusinessException((int)$ex->getCode(), $ex->getMessage());
             
             return null;
         }
@@ -74,12 +74,12 @@ class AccountDomainService implements AccountDomainServiceInterface
             $account = new Account();
         }
 
-        $uid = $this->accountRepository->create($account);
-        if (!$uid) {
+        $model = $this->accountRepository->create($account);
+        if (!$model->id) {
             throw new BusinessException(ErrorCode::INSERT_FAILED, '账号生成失败');
         }
 
-        $account->setUid($uid);
+        $account->setUid($model->uid);
 
         return $account;
     }
