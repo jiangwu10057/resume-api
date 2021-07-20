@@ -18,7 +18,7 @@ use App\Domain\Resume\Entity\Valueobject\Personal;
 class ResumeContentBuilder
 {
     private $id = 0;
-    private $uid = 0;
+    private $uid = '';
     private $title = '';
     private $target = '';
     private $contact;
@@ -280,7 +280,7 @@ class ResumeContentBuilder
     public function parse($data)
     {
         $this->setId($data['id'] ?? 0);
-        $this->setUid($data['uid'] ?? 0);
+        $this->setUid($data['uid'] ?? '');
         $this->setTitle($data['title'] ?? '');
         $this->setTarget($data['target'] ?? '');
         $this->setContact($this->buildContact($data));

@@ -24,7 +24,7 @@ class Resume
 
     public function __construct()
     {
-        $this->uid = 0;
+        $this->uid = "";
         $this->type = ResumeType::FREE;
         $this->isValid = ResumeStatus::VALID;
         $this->showEndTime = 0;
