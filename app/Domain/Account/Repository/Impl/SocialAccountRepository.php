@@ -9,7 +9,7 @@ use App\Domain\Account\Entity\Valueobject\Social;
 use App\Domain\Account\Service\SocialAccountFactory;
 use App\Model\SocialAccountModel;
 
-class SocialAccountRepositoryImpl implements SocialAccountRepositoryInterface
+class SocialAccountRepository implements SocialAccountRepositoryInterface
 {
     private $model;
 

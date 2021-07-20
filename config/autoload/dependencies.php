@@ -11,5 +11,12 @@ declare(strict_types=1);
  */
 return [
     App\Domain\Account\Service\AccountDomainServiceInterface::class => App\Domain\Account\Service\Impl\AccountDomainService::class,
-    App\Domain\User\Service\UserDomainServiceInterface::class => App\Domain\User\Service\Impl\UserDomainService::class
+    App\Domain\User\Service\UserDomainServiceInterface::class => App\Domain\User\Service\Impl\UserDomainService::class,
+    App\Domain\Resume\Service\ResumeDomainServiceInterface::class => App\Domain\Resume\Service\Impl\ResumeDomainService::class,
+
+
+    App\Domain\User\Repository\MPCodeRepositoryInterface::class => App\Domain\User\Repository\Impl\MPCodeRepository::class,
+    App\Domain\Account\Repository\AccountRepositoryInterface::class => App\Domain\Account\Repository\Impl\AccountRepository::class,
+    App\Domain\Account\Repository\SocialAccountRepositoryInterface::class => App\Domain\Account\Repository\Impl\SocialAccountRepository::class,
+
 ];

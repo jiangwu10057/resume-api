@@ -7,24 +7,28 @@ namespace App\Domain\Account\Service\Impl;
 use App\Constants\ErrorCode;
 use App\Domain\Account\Entity\Account;
 use App\Domain\Account\Entity\Valueobject\Social;
-use App\Domain\Account\Repository\Impl\AccountRepositoryImpl;
-use App\Domain\Account\Repository\Impl\SocialAccountRepositoryImpl;
+use App\Domain\Account\Repository\AccountRepositoryInterface;
+use App\Domain\Account\Repository\SocialAccountRepositoryInterface;
 use App\Domain\Account\Service\AccountDomainServiceInterface;
 use App\Domain\Account\Service\SocialAccountFactory;
 use App\Exception\BusinessException;
 
 use Hyperf\DbConnection\Db;
+use Hyperf\Di\Annotation\Inject;
 
 class AccountDomainService implements AccountDomainServiceInterface
 {
+    /**
+     * @Inject 
+     * @var AccountRepositoryInterface
+     */
     private $accountRepository;
-    private $socialAccountRepository;
 
-    public function __construct()
-    {
-        $this->socialAccountRepository = new SocialAccountRepositoryImpl();
-        $this->accountRepository = new AccountRepositoryImpl();
-    }
+    /**
+     * @Inject 
+     * @var SocialAccountRepositoryInterface
+     */
+    private $socialAccountRepository;
 
     public function login()
     {

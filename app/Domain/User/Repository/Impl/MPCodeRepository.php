@@ -8,7 +8,7 @@ use App\Domain\User\Entity\MPCode;
 use App\Domain\User\Repository\MPCodeRepositoryInterface;
 use App\Model\MPCodeModel;
 
-class AccountRepositoryImpl implements MPCodeRepositoryInterface
+class MPCodeRepository implements MPCodeRepositoryInterface
 {
 
     private $model;

@@ -5,17 +5,25 @@ declare(strict_types=1);
 namespace App\Controller\V1;
 
 use App\Controller\AbstractController;
-use App\Domain\Resume\Service\ResumeDomainService;
+use App\Domain\Resume\Service\ResumeDomainServiceInterface;
 use App\Infrastructure\Common\Api\Request;
 use App\Infrastructure\Common\Api\Response;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\RequestMapping;
+
+use Hyperf\Di\Annotation\Inject;
 
 /**
  * @Controller(prefix="/v1/resume")
  */
 class ResumeController extends AbstractController
 {
+     /**
+     * @Inject 
+     * @var ResumeDomainServiceInterface
+     */
+    private $service;
+
     /**
      * @RequestMapping(path="index", methods="post")
      */
@@ -32,8 +40,7 @@ class ResumeController extends AbstractController
         $request = new Request($this->request);
         $data = $request->getData();
 
-        $service = new ResumeDomainService();
-        $result = $service->createResumeContent($data);
+        $result = $this->service->createResumeContent($data);
 
         return Response::init($this->response)->setData($result)->send();
     }
@@ -46,8 +53,7 @@ class ResumeController extends AbstractController
         $request = new Request($this->request);
         $data = $request->getData();
 
-        $service = new ResumeDomainService();
-        $result = $service->updateResumeContent($data);
+        $result = $this->service->updateResumeContent($data);
 
         return Response::init($this->response)->setData($result)->send();
     }
@@ -60,8 +66,7 @@ class ResumeController extends AbstractController
         $request = new Request($this->request);
         $data = $request->getData();
 
-        $service = new ResumeDomainService();
-        $result = $service->preview($data);
+        $result = $this->service->preview($data);
 
         return Response::init($this->response)->setData($result)->send();
     }
@@ -74,8 +79,7 @@ class ResumeController extends AbstractController
         $request = new Request($this->request);
         $data = $request->getData();
 
-        $service = new ResumeDomainService();
-        $result = $service->my($data);
+        $result = $this->service->my($data);
 
         return Response::init($this->response)->setData($result)->send();
     }

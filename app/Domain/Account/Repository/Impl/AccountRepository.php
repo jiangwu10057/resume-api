@@ -10,7 +10,7 @@ use App\Domain\Account\Service\AccountFactory;
 use App\Domain\Account\Entity\Account;
 use App\Model\AccountModel;
 
-class AccountRepositoryImpl implements AccountRepositoryInterface
+class AccountRepository implements AccountRepositoryInterface
 {
 
     private $model;

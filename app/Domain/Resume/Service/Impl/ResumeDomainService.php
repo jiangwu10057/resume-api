@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Resume\Service;
+namespace App\Domain\Resume\Service\impl;
 
 use App\Constants\ErrorCode;
 use App\Domain\Resume\Entity\Share;
@@ -10,10 +10,13 @@ use App\Domain\Resume\Entity\Valueobject\ResumeType;
 use App\Domain\Resume\Repository\Impl\ResumeContentRepositoryImpl;
 use App\Domain\Resume\Repository\Impl\ResumeRepositoryImpl;
 use App\Domain\Resume\Repository\Impl\ResumeShareRepositoryImpl;
+use App\Domain\Resume\Service\ResumeBuilder;
+use App\Domain\Resume\Service\ResumeContentBuilder;
+use App\Domain\Resume\Service\ResumeDomainServiceInterface;
 use App\Exception\BusinessException;
 use App\Infrastructure\Common\Formatter\MarkdownFormater;
 
-class ResumeDomainService
+class ResumeDomainService implements ResumeDomainServiceInterface
 {
     private $resumeContentRepository;
     private $resumeRepository;
@@ -59,15 +62,6 @@ class ResumeDomainService
         }
     }
 
-    public function createPreviewResume($data)
-    {
-        $builder = new ResumeBuilder();
-        $resume = $builder->buildPreview();
-        try {
-            $this->resumeRepository->save($resume);
-        } catch (\Exception $e) {
-        }
-    }
 
     public function createResume($data)
     {
