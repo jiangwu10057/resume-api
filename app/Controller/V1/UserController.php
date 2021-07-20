@@ -39,9 +39,9 @@ class UserController extends AbstractController
     }
 
     /**
-     * @RequestMapping(path="findMPCode", methods="post")
+     * @RequestMapping(path="getMyMPCode", methods="post")
      */
-    public function findMPCode()
+    public function getMyMPCode()
     {
         $request = new Request($this->request);
         $data = $request->getData();

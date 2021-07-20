@@ -79,3 +79,17 @@ CREATE TABLE `social_account` (
   PRIMARY KEY (`id`),
   KEY `u` (`uid`,`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='社交账号表';
+
+-- ----------------------------
+-- Table structure for code
+-- ----------------------------
+DROP TABLE IF EXISTS `mpcode`;
+CREATE TABLE `mpcode`  (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'uid',
+  `content` longblob NOT NULL COMMENT '内容',
+  `updated_time` int UNSIGNED NOT NULL COMMENT '更新时间',
+  `created_time` int UNSIGNED NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `uid`(`uid`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;

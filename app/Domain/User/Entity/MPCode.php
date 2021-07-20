@@ -13,7 +13,7 @@ class MPCode implements \JsonSerializable
     public function __construct()
     {
         $this->id = 0;
-        $this->uid = 0;
+        $this->uid = '';
         $this->content = '';
     }
 

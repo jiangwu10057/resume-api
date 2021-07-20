@@ -6,6 +6,8 @@ namespace App\Domain\User\Repository\Impl;
 
 use App\Domain\User\Entity\MPCode;
 use App\Domain\User\Repository\MPCodeRepositoryInterface;
+
+use App\Model\Model;
 use App\Model\MPCodeModel;
 
 class MPCodeRepository implements MPCodeRepositoryInterface
@@ -29,20 +31,22 @@ class MPCodeRepository implements MPCodeRepositoryInterface
 
     private function assignment($model, $info)
     {
-        if($info->getUid()){
-            $model->uid = $info->getUid();
+        if($info->getId()){
+            $model->uid = $info->getId();
         }
-        
+        $model->uid = $info->getUid();
         $model->content = $info->getContent();
 
         return $model;
     }
 
-    public function update(MPCode $info) : bool {
+    public function update(MPCode $info) : bool 
+    {
         return true;
     }
 
-    public function findByUid(string $uid) : ?MPCode {
-        return null;
+    public function findByUid(string $uid) : ?Model 
+    {
+        return MPCodeModel::where('uid', $uid)->orderBy('id', 'desc')->first();
     }
 }
