@@ -60,4 +60,21 @@ class AccountController extends AbstractController
 
         return Response::init($this->response)->setData($result)->send();
     }
+
+    /**
+     * @RequestMapping(path="codeLogin", methods="post")
+     */
+    public function codeLogin()
+    {
+        $request = new Request($this->request);
+        $code = $request->getData('code');
+
+        $result = $this->accountService->codeLogin($code);
+
+        if($result == null) {
+            return Response::init($this->response)->setCode(500)->setMessage('微信登录失败')->send();
+        }
+
+        return Response::init($this->response)->setData($result)->send();
+    }
 }

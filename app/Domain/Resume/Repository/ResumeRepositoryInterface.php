@@ -15,7 +15,7 @@ interface ResumeRepositoryInterface
 
     function delete(int $id) : bool;
 
-    function findById(int $id) : Model;
+    function findById(int $id) : ?Model;
 
     function findByUser(int $uid) : Model;
 }

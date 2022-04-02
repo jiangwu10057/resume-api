@@ -7,6 +7,7 @@ namespace App\Domain\Account\Service\Impl;
 use App\Constants\ErrorCode;
 use App\Domain\Account\Entity\Account;
 use App\Domain\Account\Entity\Valueobject\Social;
+use App\Domain\Account\Entity\Valueobject\SourceType;
 use App\Domain\Account\Repository\AccountRepositoryInterface;
 use App\Domain\Account\Repository\SocialAccountRepositoryInterface;
 use App\Domain\Account\Service\AccountDomainServiceInterface;
@@ -45,6 +46,25 @@ class AccountDomainService implements AccountDomainServiceInterface
         } else {
             return $this->registerSocialAccount($social);
         }
+    }
+
+    public function codeLogin(string $code): ?Social
+    {
+        $result = file_get_contents("https://api.weixin.qq.com/sns/jscode2session?appid=".env("WECHAT_MINI_APPID")."&secret=".env("WECHAT_MINI_APP_SECRET")."&grant_type=authorization_code&js_code=".$code);
+        if ($result === false) {
+            return null;
+        }
+        $result = json_decode($result, true);
+        if($result === false) {
+            return null;
+        }
+
+        $openid = $result['openid'];
+
+        return $this->socialLogin([
+            'openid' => $openid,
+            'source' => SourceType::WECHAT
+        ]);
     }
 
     private function registerSocialAccount(Social $social)

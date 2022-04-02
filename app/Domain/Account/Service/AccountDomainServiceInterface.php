@@ -12,6 +12,8 @@ interface AccountDomainServiceInterface
 
     public function socialLogin(array $socialInfo) : Social;
 
+    public function codeLogin(string $code) : ?Social;
+
     public function register();
 
     public function bind();

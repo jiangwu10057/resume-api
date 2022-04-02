@@ -37,6 +37,9 @@ class SocialAccountRepository implements SocialAccountRepositoryInterface
         $model->province = $info->getAddress()->getProvince();
         $model->country = $info->getAddress()->getCountry();
         $model->gender = $info->getGender();
+        if($model->gender == '') {
+            $model->gender = 0;
+        }
         $model->nickName = $info->getNickName();
         $model->source = $info->getSource();
 

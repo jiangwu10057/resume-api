@@ -40,7 +40,7 @@ class ResumeShareRepositoryImpl implements ResumeRepositoryInterface
         return $model->delete();
     }
 
-    function findById(int $id): Model
+    function findById(int $id): ?Model
     {
         return ResumeSharedModel::query()->find($id);
     }

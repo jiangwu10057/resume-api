@@ -73,7 +73,7 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
     // /**
     //  * @Cacheable(prefix="rc", value="#{id}", ttl=7200, listener="resume-content-update")
     //  */
-    function findById($id): Model
+    function findById($id): ?Model
     {
         return ResumeContentModel::query()->find($id);
     }

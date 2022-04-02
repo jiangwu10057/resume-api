@@ -1,0 +1,22 @@
+version: '3.7'
+networks:
+  component_net:
+    driver: bridge
+    external: true
+services:
+  resume-api:
+    build:
+      context: ..
+      dockerfile: ./deploy/Dockerfile
+    image: resume-api
+    container_name: resume-api
+    restart: always
+    networks:
+      - component_net
+    external_links:
+      - mysql
+      - redis
+    ports:
+      - 9511:9501
+    volumes:
+      - ..:/home/www
