@@ -16,6 +16,15 @@ use App\Domain\Resume\Service\ResumeDomainServiceInterface;
 use App\Exception\BusinessException;
 use App\Infrastructure\Common\Formatter\MarkdownFormater;
 
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
+
 class ResumeDomainService implements ResumeDomainServiceInterface
 {
     private $resumeContentRepository;
@@ -100,13 +109,16 @@ class ResumeDomainService implements ResumeDomainServiceInterface
             throw new BusinessException(ErrorCode::PARAMETER_TYPE_ERROR);
         }
 
-        $content = $this->resumeContentRepository->findByUser($data['uid']);
+        try {
+            $content = $this->resumeContentRepository->findByUser($data['uid']);
+            if (empty($content)) {
+                throw new BusinessException(ErrorCode::NOT_FOUND);
+            }
 
-        if (empty($content)) {
+            return $this->format($content);
+        } catch (\Exception $e) {
             throw new BusinessException(ErrorCode::NOT_FOUND);
         }
-
-        return $this->format($content);
     }
 
     private function format($content)
@@ -142,5 +154,31 @@ class ResumeDomainService implements ResumeDomainServiceInterface
             }
         } catch (\Exception $e) {
         }
+    }
+
+    public function genQrcode($conf)
+    {
+        $qrCode = QrCode::create($conf['data'])
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+            ->setSize(300)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
+
+        $logo = null;
+        if (!empty($conf['logo'])) {
+            $logo = Logo::create($conf['logo'])->setResizeToWidth(50);
+        }
+
+        $label = null;
+        if (!empty($conf['label'])) {
+            $label = Label::create($conf['label'])->setTextColor(new Color(0, 0, 0));
+        }
+
+        $writer = new PngWriter();
+        $result = $writer->write($qrCode, $logo, $label);
+        return $result->getDataUri();
     }
 }

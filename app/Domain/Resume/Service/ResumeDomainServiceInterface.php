@@ -11,4 +11,5 @@ interface ResumeDomainServiceInterface {
     function preview($id);
     function my($uid);
     function share($id);
+    function genQrcode($id);
 }

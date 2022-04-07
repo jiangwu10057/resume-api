@@ -90,4 +90,17 @@ class ResumeController extends AbstractController
     public function share()
     {
     }
+
+    /**
+     * @RequestMapping(path="gen/qrcode", methods="post")
+     */
+    public function qrcode()
+    {
+        $request = new Request($this->request);
+        $conf = $request->getData();
+
+        $result = $this->service->genQrcode($conf);
+
+        return Response::init($this->response)->setData($result)->send();
+    }
 }
