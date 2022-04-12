@@ -42,6 +42,11 @@ class AccountDomainService implements AccountDomainServiceInterface
         $storedSocial = $this->socialAccountRepository->findByOpenid($social);
 
         if ($storedSocial) {
+            $social->setUid($storedSocial->getUid());
+            $social->setId($storedSocial->getId());
+            if ($this->socialAccountRepository->update($social)){
+                return $social;
+            }
             return $storedSocial;
         } else {
             return $this->registerSocialAccount($social);

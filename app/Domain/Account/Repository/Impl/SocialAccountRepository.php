@@ -49,6 +49,9 @@ class SocialAccountRepository implements SocialAccountRepositoryInterface
     public function update(Social $info) : bool
     {
         $model = SocialAccountModel::query()->find($info->getId());
+        if(empty($model)){
+            return false;
+        }
         $model = $this->assignment($model, $info);
         
         return $model->saveOrFail();
