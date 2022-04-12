@@ -10,6 +10,9 @@ class Personal implements \JsonSerializable
     private $sex;
     private $year;
     private $education;
+    private $mobile;
+    private $email;
+    private $qq;
 
     public function __construct()
     {
@@ -17,6 +20,9 @@ class Personal implements \JsonSerializable
         $this->sex = '';
         $this->year = '';
         $this->education = '';
+        $this->mobile = '';
+        $this->email = '';
+        $this->qq = '';
     }
 
     /**
@@ -99,13 +105,76 @@ class Personal implements \JsonSerializable
         return $this;
     }
 
+    /**
+     * Get the value of qq
+     */
+    public function getQq()
+    {
+        return $this->qq;
+    }
+
+    /**
+     * Set the value of qq
+     *
+     * @return  self
+     */
+    public function setQq($qq)
+    {
+        $this->qq = $qq;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of email
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of email
+     *
+     * @return  self
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of mobile
+     */
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * Set the value of mobile
+     *
+     * @return  self
+     */
+    public function setMobile($mobile)
+    {
+        $this->mobile = $mobile;
+
+        return $this;
+    }
+
     public function __toString()
     {
         return json_encode([
             'name' => $this->name,
             'sex' => $this->sex,
             'year' => $this->year,
-            'education' => $this->education
+            'education' => $this->education,
+            'email' => $this->email,
+            'mobile' => $this->mobile,
+            'qq' => $this->qq
         ], JSON_UNESCAPED_UNICODE);
     }
 

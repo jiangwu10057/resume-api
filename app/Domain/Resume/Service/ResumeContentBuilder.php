@@ -21,7 +21,6 @@ class ResumeContentBuilder
     private $uid = '';
     private $title = '';
     private $target = '';
-    private $contact;
     private $personal;
     private $workExperience = [];
     private $education = [];
@@ -53,13 +52,6 @@ class ResumeContentBuilder
     public function setTarget($target)
     {
         $this->target = $target;
-
-        return $this;
-    }
-
-    public function setContact($contact)
-    {
-        $this->contact = $contact;
 
         return $this;
     }
@@ -106,23 +98,6 @@ class ResumeContentBuilder
         return $this;
     }
 
-    private function buildContact($data)
-    {
-        $contact = new contact();
-
-        if (empty($data['contact'])) {
-            return $contact;
-        }
-
-        $data = $data['contact'];
-
-        $contact->setMobile($data['mobile'] ?? '');
-        $contact->setEmail($data['email'] ?? '');
-        $contact->setQq($data['qq'] ?? '');
-
-        return $contact;
-    }
-
     private function buildExcept($data)
     {
         $except = new Except();
@@ -154,6 +129,8 @@ class ResumeContentBuilder
         $personal->setSex($data['sex'] ?? '');
         $personal->setEducation($data['education'] ?? '');
         $personal->setYear($data['year'] ?? '');
+        $personal->setMobile($data['mobile'] ?? '');
+        $personal->setEmail($data['email'] ?? '');
 
         return $personal;
     }
@@ -283,7 +260,6 @@ class ResumeContentBuilder
         $this->setUid($data['uid'] ?? '');
         $this->setTitle($data['title'] ?? '');
         $this->setTarget($data['target'] ?? '');
-        $this->setContact($this->buildContact($data));
         $this->setExcept($this->buildExcept($data));
         $this->setPersonal($this->buildPersonal($data));
         $this->setWorkExperience($this->buildWorkExperience($data));
@@ -306,7 +282,6 @@ class ResumeContentBuilder
         $content->setTitle($this->title);
         $content->setTarget($this->target);
         $content->setExcept($this->except);
-        $content->setContact($this->contact ?? new Contact());
         $content->setPersonal($this->personal ?? new Personal());
         $content->setWorkExperience($this->workExperience);
         $content->setEducation($this->education);

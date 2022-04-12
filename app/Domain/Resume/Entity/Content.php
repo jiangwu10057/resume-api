@@ -16,7 +16,6 @@ class Content
     private $title;
     private $target;
     
-    private $contact;
     private $except;
     private $personal;
     private $workExperience;
@@ -31,33 +30,12 @@ class Content
         $this->title = '';
         $this->target = '';
 
-        $this->contact = new Contact();
         $this->except = new Except();
         $this->personal = new Personal();
         $this->workExperience = [];
         $this->education = [];
         $this->works = [];
         $this->skills = [];
-    }
-
-    /**
-     * Get the value of contact
-     */
-    public function getContact()
-    {
-        return $this->contact;
-    }
-
-    /**
-     * Set the value of contact
-     *
-     * @return  self
-     */
-    public function setContact($contact)
-    {
-        $this->contact = $contact;
-
-        return $this;
     }
 
     /**

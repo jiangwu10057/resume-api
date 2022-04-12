@@ -6,7 +6,7 @@ namespace App\Infrastructure\Common\Formatter;
 
 class MarkdownFormater implements FormatterInterface
 {
-    private $jsonkeys = array('contact', 'except', 'education_experiences', 'personal', 'skills',
+    private $jsonkeys = array('except', 'education_experiences', 'personal', 'skills',
          'work_experiences', 'works');
 
     private $secondLevelJsonKeys = array('education_experiences', 'skills', 'work_experiences');
