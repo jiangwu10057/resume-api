@@ -28,6 +28,41 @@ class SocialAccountRepository implements SocialAccountRepositoryInterface
         return 0;
     }
 
+    public function update(Social $info) : bool
+    {
+        $model = SocialAccountModel::query()->find($info->getId());
+        if(empty($model)){
+            return false;
+        }
+        $model = $this->assignment($model, $info);
+        
+        return $model->saveOrFail();
+    }
+
+    function find(Social $social) : ?Social
+    {
+        if(empty($social->getUid()) || empty($social->getSource())){
+            return null;
+        }
+
+        $model = SocialAccountModel::where('uid', $social->getUid())
+            ->where('source', $social->getSource())->first();
+
+        return $this->toEntity($model);
+    }
+
+    function findByOpenid(Social $social) : ?Social
+    {
+        if(empty($social->getOpenid()) || empty($social->getSource())){
+            return null;
+        }
+
+        $model = SocialAccountModel::where('openid', $social->getOpenid())
+            ->where('source', $social->getSource())->first();
+        
+        return $this->toEntity($model);
+    }
+
     private function assignment($model, $info)
     {
         $model->uid = $info->getUid();
@@ -44,41 +79,6 @@ class SocialAccountRepository implements SocialAccountRepositoryInterface
         $model->source = $info->getSource();
 
         return $model;
-    }
-
-    public function update(Social $info) : bool
-    {
-        $model = SocialAccountModel::query()->find($info->getId());
-        if(empty($model)){
-            return false;
-        }
-        $model = $this->assignment($model, $info);
-        
-        return $model->saveOrFail();
-    }
-
-    function find(Social $social) : ?Social
-    {
-        if(empty($social->getOpenid()) || empty($social->getUid())){
-            return null;
-        }
-
-        $model = SocialAccountModel::where('uid', $social->getUid())
-            ->where('openid', $social->getOpenid())->first();
-
-        return $this->toEntity($model);
-    }
-
-    function findByOpenid(Social $social) : ?Social
-    {
-        if(empty($social->getOpenid()) || empty($social->getSource())){
-            return null;
-        }
-
-        $model = SocialAccountModel::where('openid', $social->getOpenid())
-            ->where('source', $social->getSource())->first();
-        
-        return $this->toEntity($model);
     }
 
     private function toEntity($model)

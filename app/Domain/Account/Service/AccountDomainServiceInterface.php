@@ -10,9 +10,11 @@ interface AccountDomainServiceInterface
 {
     public function login();
 
-    public function socialLogin(array $socialInfo) : Social;
+    public function socialLogin(array $socialInfo) : ?Social;
 
     public function codeLogin(string $code) : ?Social;
+
+    public function socialInfo(array $socialInfo) : ?Social;
 
     public function register();
 

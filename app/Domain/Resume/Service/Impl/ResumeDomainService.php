@@ -71,7 +71,6 @@ class ResumeDomainService implements ResumeDomainServiceInterface
         }
     }
 
-
     public function createResume($data)
     {
         $builder = new ResumeBuilder();

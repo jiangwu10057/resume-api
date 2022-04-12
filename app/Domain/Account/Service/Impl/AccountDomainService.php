@@ -35,7 +35,7 @@ class AccountDomainService implements AccountDomainServiceInterface
     {
     }
 
-    public function socialLogin(array $socialInfo): Social
+    public function socialLogin(array $socialInfo): ?Social
     {
         $social = SocialAccountFactory::fromRequest($socialInfo);
 
@@ -70,6 +70,12 @@ class AccountDomainService implements AccountDomainServiceInterface
             'openid' => $openid,
             'source' => SourceType::WECHAT
         ]);
+    }
+
+    public function socialInfo(array $socialInfo): ?Social
+    {
+        $social = SocialAccountFactory::fromRequest($socialInfo);
+        return $this->socialAccountRepository->find($social);
     }
 
     private function registerSocialAccount(Social $social)

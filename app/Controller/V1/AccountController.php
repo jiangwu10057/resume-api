@@ -41,6 +41,18 @@ class AccountController extends AbstractController
     }
 
     /**
+     * @RequestMapping(path="socialInfo", methods="post")
+     */
+    public function socialInfo()
+    {
+        $request = new Request($this->request);
+        
+        $result = $this->accountService->socialInfo($request->getData());
+
+        return Response::init($this->response)->setData($result)->send();
+    }
+
+    /**
      * @RequestMapping(path="login", methods="post")
      */
     public function login()
