@@ -47,14 +47,13 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
     private function assignment($model, $content)
     {
         $model->uid = $content->getUid();
-        $model->title = $content->getTitle();
-        $model->target = $content->getTarget();
         $model->except = $content->getExcept();
         $model->personal = $content->getPersonal();
-        $model->work_experiences = json_encode($content->getWorkExperience(), JSON_UNESCAPED_UNICODE);
-        $model->education_experiences = json_encode($content->getEducation(), JSON_UNESCAPED_UNICODE);
+        $model->work = json_encode($content->getWork(), JSON_UNESCAPED_UNICODE);
+        $model->education = json_encode($content->getEducation(), JSON_UNESCAPED_UNICODE);
         $model->skills = json_encode($content->getSkills(), JSON_UNESCAPED_UNICODE);
-        $model->works = $content->getWorks();
+        $model->works = json_encode($content->getWorks(), JSON_UNESCAPED_UNICODE);
+        $model->projects = json_encode($content->getProjects(), JSON_UNESCAPED_UNICODE);
 
         return $model;
     }

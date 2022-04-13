@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Entity;
 
-use App\Domain\Resume\Entity\Valueobject\Contact;
 use App\Domain\Resume\Entity\Valueobject\Except;
 use App\Domain\Resume\Entity\Valueobject\Personal;
 
@@ -13,29 +12,26 @@ class Content
     private $id = 0;
     private $uid;
 
-    private $title;
-    private $target;
-    
     private $except;
     private $personal;
-    private $workExperience;
+    private $work;
     private $education;
     private $works;
     private $skills;
+    private $projects;
 
     public function __construct()
     {
         $this->uid = 0;
 
-        $this->title = '';
-        $this->target = '';
-
         $this->except = new Except();
         $this->personal = new Personal();
-        $this->workExperience = [];
+        $this->projects = [];
+        $this->work = [];
         $this->education = [];
         $this->works = [];
         $this->skills = [];
+
     }
 
     /**
@@ -59,21 +55,21 @@ class Content
     }
 
     /**
-     * Get the value of workExperience
+     * Get the value of work
      */
-    public function getWorkExperience()
+    public function getWork()
     {
-        return $this->workExperience;
+        return $this->work;
     }
 
     /**
-     * Set the value of workExperience
+     * Set the value of work
      *
      * @return  self
      */
-    public function setWorkExperience($workExperience)
+    public function setWork($work)
     {
-        $this->workExperience = $workExperience;
+        $this->work = $work;
 
         return $this;
     }
@@ -234,6 +230,26 @@ class Content
     public function setExcept($except)
     {
         $this->except = $except;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of projects
+     */
+    public function getProjects()
+    {
+        return $this->projects;
+    }
+
+    /**
+     * Set the value of projects
+     *
+     * @return  self
+     */
+    public function setProjects($projects)
+    {
+        $this->projects = $projects;
 
         return $this;
     }
