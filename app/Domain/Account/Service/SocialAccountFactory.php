@@ -29,6 +29,24 @@ class SocialAccountFactory
         }
     }
 
+    public static function mergerInfo(Social $store, Social $request): Social
+    {
+        if(!empty($request->getAvatarUrl()) && $request->getAvatarUrl() != $store->getAvatarUrl()) {
+            $store->setAvatarUrl($request->getAvatarUrl());
+        }
+        if($request->getGender() > -1 && $request->getGender() != $store->getGender()) {
+            $store->setGender($request->getGender());
+        }
+        if(!empty($request->getNickName()) && $request->getNickName() != $store->getNickName()) {
+            $store->setNickName($request->getNickName());
+        }
+        if(!empty($request->getAddress()) && $request->getAddress() != $store->getAddress()) {
+            $store->setAddress($request->getAddress());
+        }
+
+        return $store;
+    }
+
     private static function wechatFromRequest(array $data): Wechat
     {
         $wechat = new Wechat();

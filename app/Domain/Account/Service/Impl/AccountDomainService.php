@@ -42,8 +42,7 @@ class AccountDomainService implements AccountDomainServiceInterface
         $storedSocial = $this->socialAccountRepository->findByOpenid($social);
 
         if ($storedSocial) {
-            $social->setUid($storedSocial->getUid());
-            $social->setId($storedSocial->getId());
+            $social = SocialAccountFactory::mergerInfo($storedSocial, $social);
             if ($this->socialAccountRepository->update($social)){
                 return $social;
             }

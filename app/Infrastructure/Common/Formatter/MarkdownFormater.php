@@ -21,12 +21,6 @@ class MarkdownFormater implements FormatterInterface
             $data[$key] = $this->jsonDecodeArray($data[$key]);
         }
 
-        $data['works'] = [
-            'articles' => $this->jsonDecodeArray($data['works']['articles']),
-            'opensources' => $this->jsonDecodeArray($data['works']['opensources']),
-            'speeches' => $this->jsonDecodeArray($data['works']['speeches']),
-        ];
-
         unset($data['created_time'], $data['uid'], $data['updated_time']);
 
         return $data;
