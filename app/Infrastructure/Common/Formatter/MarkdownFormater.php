@@ -9,7 +9,7 @@ class MarkdownFormater implements FormatterInterface
     private $jsonkeys = array('except', 'education', 'personal', 'skills',
          'work', 'works', 'projects');
 
-    private $secondLevelJsonKeys = array('education', 'skills', 'work', 'projects');
+    private $secondLevelJsonKeys = array('education', 'skills', 'work', 'works', 'projects');
 
     public function format($data)
     {

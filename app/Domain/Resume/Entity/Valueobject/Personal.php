@@ -9,7 +9,6 @@ class Personal implements \JsonSerializable
     private $name;
     private $sex;
     private $year;
-    private $education;
     private $mobile;
     private $email;
     private $qq;
@@ -19,7 +18,6 @@ class Personal implements \JsonSerializable
         $this->name = '';
         $this->sex = '';
         $this->year = '';
-        $this->education = '';
         $this->mobile = '';
         $this->email = '';
         $this->qq = '';
@@ -81,26 +79,6 @@ class Personal implements \JsonSerializable
     public function setYear($year)
     {
         $this->year = $year;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of education
-     */
-    public function getEducation()
-    {
-        return $this->education;
-    }
-
-    /**
-     * Set the value of education
-     *
-     * @return  self
-     */
-    public function setEducation($education)
-    {
-        $this->education = $education;
 
         return $this;
     }
@@ -171,7 +149,6 @@ class Personal implements \JsonSerializable
             'name' => $this->name,
             'sex' => $this->sex,
             'year' => $this->year,
-            'education' => $this->education,
             'email' => $this->email,
             'mobile' => $this->mobile,
             'qq' => $this->qq

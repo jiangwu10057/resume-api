@@ -117,7 +117,6 @@ class ResumeContentBuilder
 
         $personal->setName($data['name'] ?? '');
         $personal->setSex($data['sex'] ?? '');
-        $personal->setEducation($data['education'] ?? '');
         $personal->setYear($data['year'] ?? '');
         $personal->setMobile($data['mobile'] ?? '');
         $personal->setEmail($data['email'] ?? '');
