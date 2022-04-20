@@ -16,7 +16,5 @@ services:
     external_links:
       - mysql
       - redis
-    ports:
-      - 9511:9501
     volumes:
       - ..:/home/www
