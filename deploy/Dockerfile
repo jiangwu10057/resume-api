@@ -1,8 +1,6 @@
-FROM component/phpfpm
+FROM component/php
 LABEL maintainer="chenwu <jiangwu10057@qq.com>" version="0.1"
 WORKDIR /home/www
-
-RUN 
 
 RUN sed -i 's/deb.debian.org/mirrors.tencent.com/' /etc/apt/sources.list && \
     apt-get -y update && \
