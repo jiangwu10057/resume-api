@@ -14,7 +14,9 @@ class MarkdownFormater implements FormatterInterface
     public function format($data)
     {
         foreach ($this->jsonkeys as $key){
-            $data[$key] = json_decode($data[$key], true);
+            if(!empty($data[$key])){
+                $data[$key] = json_decode($data[$key], true);
+            }
         }
 
         foreach ($this->secondLevelJsonKeys as $key){
