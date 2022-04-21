@@ -70,7 +70,7 @@
     "config": {
         "optimize-autoloader": true,
         "sort-packages": true,
-        "process-timeout":0,
+        "process-timeout": 0,
         "allow-plugins": {
             "third-party/required-plugin": true,
             "unnecessary/plugin": false,
@@ -94,5 +94,11 @@
             "Composer\\Config::disableProcessTimeout",
             "php ./bin/hyperf.php start"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
+    ]
 }
