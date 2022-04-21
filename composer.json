@@ -1,5 +1,5 @@
 {
-    "name": "hyperf/hyperf-skeleton",
+    "name": "jiangwu10057/resume-api",
     "type": "project",
     "keywords": [
         "php",
@@ -69,7 +69,13 @@
     "prefer-stable": true,
     "config": {
         "optimize-autoloader": true,
-        "sort-packages": true
+        "sort-packages": true,
+        "process-timeout":0,
+        "allow-plugins": {
+            "third-party/required-plugin": true,
+            "unnecessary/plugin": false,
+            "easywechat-composer/easywechat-composer": true
+        }
     },
     "extra": [],
     "scripts": {
@@ -79,10 +85,13 @@
         "post-autoload-dump": [
             "rm -rf runtime/container"
         ],
-        "test": "co-phpunit -c phpunit.xml --colors=always",
+        "test": "co-phpunit --prepend test/bootstrap.php -c phpunit.xml --colors=always",
         "cs-fix": "php-cs-fixer fix $1",
         "analyse": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app ./config",
         "start": [
+            "composer install --no-dev",
+            "composer dump-autoload -o",
+            "Composer\\Config::disableProcessTimeout",
             "php ./bin/hyperf.php start"
         ]
     }
