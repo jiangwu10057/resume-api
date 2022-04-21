@@ -28,6 +28,9 @@ class MarkdownFormater implements FormatterInterface
 
     private function jsonDecodeArray($data)
     {
+        if (empty($data)){
+            return [];
+        }
         $values = [];
         foreach ($data as $value){
             $values[] = json_decode($value, true);
