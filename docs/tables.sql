@@ -66,22 +66,33 @@ CREATE TABLE `resume`  (
 -- ----------------------------
 -- Table structure for resume_content
 -- ----------------------------
-DROP TABLE IF EXISTS `resume_content`;
-CREATE TABLE `resume_content`  (
+DROP TABLE IF EXISTS resume_content;
+CREATE TABLE `resume_content` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'primary key',
-  `uid` bigint NOT NULL DEFAULT 0 COMMENT '用户编号',
-  `personal` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '个人基本信息',
-  `work` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '工作经历',
-  `education` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教育经历',
-  `skills` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '技能',
-  `works` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '作品 演讲 开源项目',
-  `except` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '期望',
-  `projects` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目',
-  `created_time` int NOT NULL DEFAULT 0 COMMENT 'created tiem',
-  `updated_time` int NOT NULL DEFAULT 0 COMMENT 'updated tiem',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `u`(`uid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '简历内容' ROW_FORMAT = Dynamic;
+  `created_time` int NOT NULL DEFAULT '0' COMMENT 'created tiem',
+  `updated_time` int NOT NULL DEFAULT '0' COMMENT 'updated tiem',
+  `uid` varchar(32) NOT NULL DEFAULT '' COMMENT '用户编号',
+  `title` varchar(500) NOT NULL DEFAULT '' COMMENT '标题',
+  `target` varchar(100) NOT NULL DEFAULT '' COMMENT '目标岗位',
+  `contact` varchar(500) NOT NULL DEFAULT '' COMMENT '联系方式',
+  `personal` varchar(500) NOT NULL DEFAULT '' COMMENT '个人基本信息',
+  `work_experiences` longtext COMMENT '工作经历',
+  `education_experiences` longtext COMMENT '教育经历',
+  `skills` varchar(500) NOT NULL DEFAULT '' COMMENT '技能',
+  `works` longtext NOT NULL COMMENT '作品 演讲 开源项目',
+  `except` varchar(500) NOT NULL DEFAULT '' COMMENT '期望',
+  PRIMARY KEY (`id`),
+  KEY `u` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='简历内容';
+
+DROP TABLE IF EXISTS resume_shared;
+CREATE TABLE `resume_shared` (
+  `id` char(32) NOT NULL COMMENT 'primary key',
+  `created_time` int NOT NULL DEFAULT '0' COMMENT 'created tiem',
+  `updated_time` int NOT NULL DEFAULT '0' COMMENT 'updated tiem',
+  `rid` bigint NOT NULL DEFAULT '0' COMMENT '简历id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='简历内容';
 
 -- ----------------------------
 -- Table structure for resume_shared

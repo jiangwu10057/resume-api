@@ -8,7 +8,8 @@ class Personal implements \JsonSerializable
 {
     private $name;
     private $sex;
-    private $birthday;
+    private $year;
+    private $education;
     private $mobile;
     private $email;
     private $qq;
@@ -17,7 +18,8 @@ class Personal implements \JsonSerializable
     {
         $this->name = '';
         $this->sex = '';
-        $this->birthday = '';
+        $this->year = '';
+        $this->education = '';
         $this->mobile = '';
         $this->email = '';
         $this->qq = '';
@@ -66,9 +68,9 @@ class Personal implements \JsonSerializable
     /**
      * Get the value of year
      */
-    public function getBirthday()
+    public function getYear()
     {
-        return $this->birthday;
+        return $this->year;
     }
 
     /**
@@ -76,9 +78,29 @@ class Personal implements \JsonSerializable
      *
      * @return  self
      */
-    public function setBirthday($birthday)
+    public function setYear($year)
     {
-        $this->birthday = $birthday;
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of education
+     */
+    public function getEducation()
+    {
+        return $this->education;
+    }
+
+    /**
+     * Set the value of education
+     *
+     * @return  self
+     */
+    public function setEducation($education)
+    {
+        $this->education = $education;
 
         return $this;
     }
@@ -148,7 +170,8 @@ class Personal implements \JsonSerializable
         return json_encode([
             'name' => $this->name,
             'sex' => $this->sex,
-            'birthday' => $this->birthday,
+            'year' => $this->year,
+            'education' => $this->education,
             'email' => $this->email,
             'mobile' => $this->mobile,
             'qq' => $this->qq

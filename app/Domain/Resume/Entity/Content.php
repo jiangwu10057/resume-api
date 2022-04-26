@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume\Entity;
 
+use App\Domain\Resume\Entity\Valueobject\Contact;
 use App\Domain\Resume\Entity\Valueobject\Except;
 use App\Domain\Resume\Entity\Valueobject\Personal;
 
@@ -12,26 +13,51 @@ class Content
     private $id = 0;
     private $uid;
 
+    private $title;
+    private $target;
+    
+    private $contact;
     private $except;
     private $personal;
-    private $work;
+    private $workExperience;
     private $education;
     private $works;
     private $skills;
-    private $projects;
 
     public function __construct()
     {
         $this->uid = 0;
 
+        $this->title = '';
+        $this->target = '';
+
+        $this->contact = new Contact();
         $this->except = new Except();
         $this->personal = new Personal();
-        $this->projects = [];
-        $this->work = [];
+        $this->workExperience = [];
         $this->education = [];
         $this->works = [];
         $this->skills = [];
+    }
 
+    /**
+     * Get the value of contact
+     */
+    public function getContact()
+    {
+        return $this->contact;
+    }
+
+    /**
+     * Set the value of contact
+     *
+     * @return  self
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+
+        return $this;
     }
 
     /**
@@ -55,21 +81,21 @@ class Content
     }
 
     /**
-     * Get the value of work
+     * Get the value of workExperience
      */
-    public function getWork()
+    public function getWorkExperience()
     {
-        return $this->work;
+        return $this->workExperience;
     }
 
     /**
-     * Set the value of work
+     * Set the value of workExperience
      *
      * @return  self
      */
-    public function setWork($work)
+    public function setWorkExperience($workExperience)
     {
-        $this->work = $work;
+        $this->workExperience = $workExperience;
 
         return $this;
     }
@@ -230,26 +256,6 @@ class Content
     public function setExcept($except)
     {
         $this->except = $except;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of projects
-     */
-    public function getProjects()
-    {
-        return $this->projects;
-    }
-
-    /**
-     * Set the value of projects
-     *
-     * @return  self
-     */
-    public function setProjects($projects)
-    {
-        $this->projects = $projects;
 
         return $this;
     }

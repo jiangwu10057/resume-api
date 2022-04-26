@@ -37,6 +37,7 @@ abstract class Social implements \JsonSerializable
             'nickName' => $this->nickName,
             'source' => $this->source,
             'uid' => $this->uid,
+            'id' => $this->uid,
         ], JSON_UNESCAPED_UNICODE);
     }
 

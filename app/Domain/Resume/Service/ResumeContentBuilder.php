@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Domain\Resume\Service;
 
 use App\Domain\Resume\Entity\Content;
+use App\Domain\Resume\Entity\Valueobject\Contact;
 use App\Domain\Resume\Entity\Valueobject\Except;
 use App\Domain\Resume\Entity\Valueobject\Skill;
 use App\Domain\Resume\Entity\Valueobject\Work;
+use App\Domain\Resume\Entity\Valueobject\Works;
 use App\Domain\Resume\Entity\Valueobject\Experience\Company;
 use App\Domain\Resume\Entity\Valueobject\Experience\Project;
 use App\Domain\Resume\Entity\Valueobject\Experience\School;
@@ -17,13 +19,15 @@ class ResumeContentBuilder
 {
     private $id = 0;
     private $uid = '';
+    private $title = '';
+    private $target = '';
+    private $contact;
     private $personal;
-    private $work = [];
+    private $workExperience = [];
     private $education = [];
     private $works = [];
     private $skills = [];
     private $except = [];
-    private $projects = [];
 
     public function setId($id)
     {
@@ -35,6 +39,27 @@ class ResumeContentBuilder
     public function setUid($uid)
     {
         $this->uid = $uid;
+
+        return $this;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function setTarget($target)
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
 
         return $this;
     }
@@ -53,9 +78,9 @@ class ResumeContentBuilder
         return $this;
     }
 
-    public function setWork($work)
+    public function setWorkExperience($workExperience)
     {
-        $this->work = $work;
+        $this->workExperience = $workExperience;
 
         return $this;
     }
@@ -80,12 +105,22 @@ class ResumeContentBuilder
 
         return $this;
     }
-    
-    public function setProjects($projects)
-    {
-        $this->projects = $projects;
 
-        return $this;
+    private function buildContact($data)
+    {
+        $contact = new contact();
+
+        if (empty($data['contact'])) {
+            return $contact;
+        }
+
+        $data = $data['contact'];
+
+        $contact->setMobile($data['mobile'] ?? '');
+        $contact->setEmail($data['email'] ?? '');
+        $contact->setQq($data['qq'] ?? '');
+
+        return $contact;
     }
 
     private function buildExcept($data)
@@ -117,9 +152,8 @@ class ResumeContentBuilder
 
         $personal->setName($data['name'] ?? '');
         $personal->setSex($data['sex'] ?? '');
-        $personal->setBirthday($data['birthday'] ?? '');
-        $personal->setMobile($data['mobile'] ?? '');
-        $personal->setEmail($data['email'] ?? '');
+        $personal->setEducation($data['education'] ?? '');
+        $personal->setYear($data['year'] ?? '');
 
         return $personal;
     }
@@ -128,22 +162,39 @@ class ResumeContentBuilder
     {
         $workExperience = [];
 
-        if (empty($data['work'])) {
+        if (empty($data['work_experience'])) {
             return $workExperience;
         }
 
-        foreach ($data['work'] as $one) {
+        foreach ($data['work_experience'] as $one) {
             $company = new Company();
-            $company->setName($one['name'] ?? '');
-            $company->setJob($one['job'] ?? '');
-            $company->setEntrance($one['entrance'] ?? '');
-            $company->setLeave($one['leave'] ?? '');
-            $company->setDescription($one['description'] ?? '');
+            $company->setCompany($one['company'] ?? '');
+            $company->setPosition($one['position'] ?? '');
+            $company->setTimeperiod($one['timeperiod'] ?? '');
+            $company->setProjects($this->buildProjectExperience($one['experiences']));
 
             $workExperience[] = $company;
         }
 
         return $workExperience;
+    }
+
+    private function buildProjectExperience($data)
+    {
+        $projects = [];
+        if (empty($data)) {
+            return $projects;
+        }
+
+        foreach ($data as $project) {
+            $projectObj = new Project();
+            $projectObj->setName($project['project'] ?? '');
+            $projectObj->setRole($project['role'] ?? '');
+            $projectObj->setDescription($project['description'] ?? '');
+            $projects[] = $projectObj;
+        }
+
+        return $projects;
     }
 
     private function buildEducation($data)
@@ -173,13 +224,28 @@ class ResumeContentBuilder
 
     private function buildWorks($data)
     {
-        $works = [];
+        $works = new Works();
 
         if (empty($data['works'])) {
             return $works;
         }
 
-        foreach ($data['works'] as $one) {
+        $works->setOpensources($this->buildWork($data['works']['opensources']));
+        $works->setArticles($this->buildWork($data['works']['articles']));
+        $works->setSpeeches($this->buildWork($data['works']['speeches']));
+
+        return $works;
+    }
+
+    private function buildWork($data)
+    {
+        $works = [];
+
+        if (empty($data)) {
+            return $works;
+        }
+
+        foreach ($data as $one) {
             $work = new Work();
             $work->setName($one['name'] ?? '');
             $work->setUrl($one['url'] ?? '');
@@ -211,40 +277,16 @@ class ResumeContentBuilder
         return $skills;
     }
 
-    private function buildProjects($data)
-    {
-        $projects = [];
-
-        if(empty($data['projects'])){
-            return $projects;
-        }
-
-        foreach ($data['projects'] as $one) {
-            $project = new Project();
-            
-            $project->setType($one['type'] ?? 1);
-            $project->setCompany($one['company'] ?? '');
-            $project->setName($one['name'] ?? '');
-            $project->setRole($one['role'] ?? '');
-            $project->setStart($one['start'] ?? '');
-            $project->setEnd($one['end'] ?? '');
-            $project->setDescription($one['description'] ?? '');
-            $project->setUrl($one['url'] ?? '');
-
-            $projects[] = $project;
-        }
-
-        return $projects;
-    }
-
     public function parse($data)
     {
         $this->setId($data['id'] ?? 0);
         $this->setUid($data['uid'] ?? '');
-        $this->setProjects($this->buildProjects($data));
+        $this->setTitle($data['title'] ?? '');
+        $this->setTarget($data['target'] ?? '');
+        $this->setContact($this->buildContact($data));
         $this->setExcept($this->buildExcept($data));
         $this->setPersonal($this->buildPersonal($data));
-        $this->setWork($this->buildWorkExperience($data));
+        $this->setWorkExperience($this->buildWorkExperience($data));
         $this->setEducation($this->buildEducation($data));
         $this->setWorks($this->buildWorks($data));
         $this->setSkills($this->buildSkills($data));
@@ -261,13 +303,15 @@ class ResumeContentBuilder
         }
 
         $content->setUid($this->uid);
+        $content->setTitle($this->title);
+        $content->setTarget($this->target);
         $content->setExcept($this->except);
+        $content->setContact($this->contact ?? new Contact());
         $content->setPersonal($this->personal ?? new Personal());
-        $content->setWork($this->work);
+        $content->setWorkExperience($this->workExperience);
         $content->setEducation($this->education);
         $content->setWorks($this->works);
         $content->setSkills($this->skills);
-        $content->setProjects($this->projects);
 
         return $content;
     }

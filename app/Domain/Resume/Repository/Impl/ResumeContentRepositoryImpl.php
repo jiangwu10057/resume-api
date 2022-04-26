@@ -47,13 +47,15 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
     private function assignment($model, $content)
     {
         $model->uid = $content->getUid();
+        $model->title = $content->getTitle();
+        $model->target = $content->getTarget();
+        $model->contact = $content->getContact();
         $model->except = $content->getExcept();
         $model->personal = $content->getPersonal();
-        $model->work = json_encode($content->getWork(), JSON_UNESCAPED_UNICODE);
-        $model->education = json_encode($content->getEducation(), JSON_UNESCAPED_UNICODE);
+        $model->work_experiences = json_encode($content->getWorkExperience(), JSON_UNESCAPED_UNICODE);
+        $model->education_experiences = json_encode($content->getEducation(), JSON_UNESCAPED_UNICODE);
         $model->skills = json_encode($content->getSkills(), JSON_UNESCAPED_UNICODE);
-        $model->works = json_encode($content->getWorks(), JSON_UNESCAPED_UNICODE);
-        $model->projects = json_encode($content->getProjects(), JSON_UNESCAPED_UNICODE);
+        $model->works = $content->getWorks();
 
         return $model;
     }
@@ -71,7 +73,7 @@ class ResumeContentRepositoryImpl implements ResumeRepositoryInterface
     // /**
     //  * @Cacheable(prefix="rc", value="#{id}", ttl=7200, listener="resume-content-update")
     //  */
-    function findById($id): ?Model
+    function findById($id): Model
     {
         return ResumeContentModel::query()->find($id);
     }

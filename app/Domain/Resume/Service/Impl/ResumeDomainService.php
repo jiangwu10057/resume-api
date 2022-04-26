@@ -42,6 +42,11 @@ class ResumeDomainService implements ResumeDomainServiceInterface
     {
         $builder = new ResumeContentBuilder();
         $content = $builder->parse($data)->build();
+        $old = $this->resumeContentRepository->findByUser($content->getUid());
+        if($old){
+            $data['id'] = $old->id;
+            return $this->updateResumeContent($data);
+        }
         try {
             $result = $this->resumeContentRepository->save($content);
             if (!$result) {
@@ -65,7 +70,7 @@ class ResumeDomainService implements ResumeDomainServiceInterface
                 throw new \Exception("数据更新失败");
             }
 
-            return $result;
+            return $content['id'];
         } catch (\Exception $e) {
             throw new BusinessException(ErrorCode::UPDATE_FAILED);
         }
