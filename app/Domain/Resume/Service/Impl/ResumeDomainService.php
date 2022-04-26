@@ -50,13 +50,15 @@ class ResumeDomainService implements ResumeDomainServiceInterface
                     return $this->updateResumeContent($data);
                 }
             }catch(\Exception $e){
-                $result = $this->resumeContentRepository->save($content);
-                if (!$result) {
-                    throw new \Exception("数据插入失败");
-                }
-
-                return $result;
+                
             }
+
+            $result = $this->resumeContentRepository->save($content);
+            if (!$result) {
+                throw new \Exception("数据插入失败");
+            }
+
+            return $result;
         } catch (\Exception $e) {
             //e->getMessage 会把sql暴露
             throw new BusinessException(ErrorCode::INSERT_FAILED, $e->getMessage());
